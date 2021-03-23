@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import AppMenuBar from './components/AppMenuBar';
+import NavBar from './components/NavBar';
 // pages
 import Login from './pages/Login';
 import Forums from './pages/Forums';
@@ -11,7 +11,7 @@ import SignUp from './pages/SignUp';
 function App() {
   return (
     <Router>
-      <AppMenuBar />
+      <NavBar />
       <Switch>
         <Route path="/" exact>
           <Forums />
