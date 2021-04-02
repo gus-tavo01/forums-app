@@ -79,17 +79,23 @@ function Forums() {
         <PageTitle>Public forums</PageTitle>
         <Grid container item direction="column">
           <Grid container item justify="center">
-            <TextField label="Forum name" type="search" variant="outlined" />
-            <Button
-              className={classes.search}
-              onClick={onSubmit}
-              color="primary"
-              variant="contained"
+            <TextField
+              label="Forum name"
+              type="search"
+              variant="outlined"
               size="small"
-              startIcon={<SearchOutlinedIcon />}
-            >
-              Search
-            </Button>
+            />
+            <div>
+              <Button
+                className={classes.search}
+                onClick={onSubmit}
+                color="primary"
+                variant="contained"
+                startIcon={<SearchOutlinedIcon />}
+              >
+                Search
+              </Button>
+            </div>
           </Grid>
           <Grid container item justify="center">
             <Button
