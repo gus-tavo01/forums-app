@@ -1,21 +1,18 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom';
+import PageTitle from '../components/PageTitle';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   paper: {
     minWidth: 320,
     maxWidth: 500,
     marginTop: 15,
     padding: 15,
-  },
-  inputs: {
-    margin: theme.spacing(2),
   },
   buttons: {
     display: 'flex',
@@ -41,9 +38,7 @@ function Login() {
     <Grid container justify="center">
       <Paper className={classes.paper}>
         <Grid item container direction="column">
-          <Typography variant="h4" component="h2">
-            Login
-          </Typography>
+          <PageTitle>Login</PageTitle>
           <form className={classes.form} autoComplete={'off'}>
             <TextField label="Username" variant="outlined" fullWidth />
             <TextField
