@@ -57,24 +57,20 @@ function AppMenu(props) {
       >
         {/* menu items */}
         {isAuth && (
-          <Link to="/account">
-            <MenuItem onClick={closeMenu}>
-              <ListItemIcon>
-                <AccountCircleOutlinedIcon />
-              </ListItemIcon>
-              Account
-            </MenuItem>
-          </Link>
+          <MenuItem onClick={closeMenu} component={Link} to="/account">
+            <ListItemIcon>
+              <AccountCircleOutlinedIcon />
+            </ListItemIcon>
+            Account
+          </MenuItem>
         )}
         {isAuth && (
-          <Link to="my-forums">
-            <MenuItem onClick={closeMenu}>
-              <ListItemIcon>
-                <ForumOutlinedIcon />
-              </ListItemIcon>
-              My forums
-            </MenuItem>
-          </Link>
+          <MenuItem onClick={closeMenu} component={Link} to="my-forums">
+            <ListItemIcon>
+              <ForumOutlinedIcon />
+            </ListItemIcon>
+            My forums
+          </MenuItem>
         )}
         {isAuth && (
           <MenuItem onClick={handleOpenNotifications}>
@@ -84,24 +80,20 @@ function AppMenu(props) {
             Notifications
           </MenuItem>
         )}
-        <Link to="/about">
-          <MenuItem onClick={closeMenu}>
-            <ListItemIcon>
-              <HelpOutlineOutlinedIcon />
-            </ListItemIcon>
-            About
-          </MenuItem>
-        </Link>
         {!isAuth && (
-          <Link to="/login">
-            <MenuItem onClick={closeMenu}>
-              <ListItemIcon>
-                <PeopleOutlineOutlinedIcon />
-              </ListItemIcon>
-              Login
-            </MenuItem>
-          </Link>
+          <MenuItem onClick={closeMenu} component={Link} to="/login">
+            <ListItemIcon>
+              <PeopleOutlineOutlinedIcon />
+            </ListItemIcon>
+            Login
+          </MenuItem>
         )}
+        <MenuItem onClick={closeMenu} component={Link} to="/about">
+          <ListItemIcon>
+            <HelpOutlineOutlinedIcon />
+          </ListItemIcon>
+          About
+        </MenuItem>
         {isAuth && <Divider />}
         {isAuth && (
           <MenuItem onClick={handleLogout}>
