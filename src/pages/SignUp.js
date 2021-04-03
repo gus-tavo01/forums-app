@@ -58,7 +58,7 @@ function SignUp() {
     <Grid container justify="center">
       <Paper className={classes.paper}>
         <Grid container item direction="column">
-          <PageTitle>Sign up page</PageTitle>
+          <PageTitle>Sign Up</PageTitle>
           <Grid item container alignItems="flex-end" justify="center">
             <Avatar src={null} className={classes.avatar} />
             <IconButton size="small">
