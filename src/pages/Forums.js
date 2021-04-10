@@ -22,9 +22,6 @@ const useStyles = makeStyles(() => ({
   input: {
     margin: '10px 0px',
   },
-  search: {
-    marginLeft: '20px',
-  },
   paginationContainer: {
     marginTop: '10px',
     marginBottom: '10px',
@@ -78,7 +75,7 @@ function Forums() {
       <Paper className={classes.paper}>
         <PageTitle>Public forums</PageTitle>
         <Grid container item direction="column">
-          <Grid container item justify="center">
+          <Grid container item justify="space-evenly">
             <TextField
               label="Forum name"
               type="search"
@@ -87,7 +84,6 @@ function Forums() {
             />
             <div>
               <Button
-                className={classes.search}
                 onClick={onSubmit}
                 color="primary"
                 variant="contained"
@@ -121,7 +117,7 @@ function Forums() {
               showLastButton
             />
           </Container>
-          <Grid container item direction="column" justify="center">
+          <Grid container item direction="column" alignItems="center">
             <ForumsList forums={forums} />
           </Grid>
         </Grid>
