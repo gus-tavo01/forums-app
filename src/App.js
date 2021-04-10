@@ -7,6 +7,9 @@ import Forums from './pages/Forums';
 import About from './pages/About';
 import NotFound from './pages/NotFound';
 import SignUp from './pages/SignUp';
+import ForgotPassword from './pages/ForgotPassword';
+import ForumDetails from './pages/ForumDetails';
+import TopicDetails from './pages/TopicDetails';
 
 function App() {
   return (
@@ -24,6 +27,15 @@ function App() {
         </Route>
         <Route path="/about">
           <About />
+        </Route>
+        <Route path="/forgot-password">
+          <ForgotPassword />
+        </Route>
+        <Route path="/forum/:id">
+          <ForumDetails />
+        </Route>
+        <Route path="/forum/:id/topic/:id">
+          <TopicDetails />
         </Route>
         {/*
         /my-forums
