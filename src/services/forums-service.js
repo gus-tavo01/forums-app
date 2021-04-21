@@ -16,7 +16,7 @@ export default class ForumsService {
     if (filters.author) {
       params.author = filters.author;
     }
-    if (filters.size) {
+    if (filters.size && filters.size !== 'open') {
       params.size = filters.size;
     }
 
