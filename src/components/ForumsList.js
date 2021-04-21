@@ -7,7 +7,7 @@ function ForumsList(props) {
     <Fragment>
       {props.forums.map((forum, i) => (
         <ForumCard
-          id={forum.id}
+          id={forum._id}
           key={i}
           name={forum.name}
           participants={forum.participants.length}
