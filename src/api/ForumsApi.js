@@ -29,7 +29,7 @@ export default class ForumsApi {
   constructor(timeout = 35000) {
     this.timeout = timeout;
     const instance = axios.create({
-      baseURL: `${ForumsApiUrl}/posts`,
+      baseURL: `${ForumsApiUrl}/api/v0/forums`,
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
@@ -40,6 +40,10 @@ export default class ForumsApi {
     instance.interceptors.response.use(successCallback, errorCallback);
     this.instance = instance;
   }
+
+  // setToken = (token) => {
+  // this.instance.
+  // }
 
   getByFilters = async (params) => this.instance.get('/', params);
 
