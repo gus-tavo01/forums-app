@@ -6,10 +6,10 @@ export const loadForums = (payload) => {
     // set forums loading on true
     const forumsService = new ForumsService();
     const response = await forumsService.getForums(payload);
-    // if (!response.isSuccess)
+    // if (!response.fields)
     // dispatch error action
-    // success
-    dispatch({ type: LOAD_FORUMS, payload: response });
+    // success flow
+    dispatch({ type: LOAD_FORUMS, payload: response.payload });
     // set forums loading on false
   };
 };
