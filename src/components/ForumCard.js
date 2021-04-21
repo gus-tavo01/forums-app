@@ -50,7 +50,7 @@ function ForumCard(props) {
               Forum name
             </Typography>
             <Typography variant="caption">
-              Last post: {new Date().toDateString()}
+              Last post: {props.lastActivity}
             </Typography>
           </Grid>
         </Grid>
@@ -72,14 +72,14 @@ ForumCard.propTypes = {
   id: PropTypes.number,
   name: PropTypes.string,
   description: PropTypes.string,
-  lastPostDate: PropTypes.string,
+  lastActivity: PropTypes.string,
   author: PropTypes.string,
   image: PropTypes.string,
   participants: PropTypes.number,
 };
 
 ForumCard.defaultProps = {
-  image: '', // default image
+  image: '',
   name: 'Forum Name',
   author: 'Anonymous',
   participants: 0,

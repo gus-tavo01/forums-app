@@ -5,13 +5,13 @@ import ForumCard from './ForumCard';
 function ForumsList(props) {
   return (
     <Fragment>
-      {props.forums.map((forum) => (
+      {props.forums.map((forum, i) => (
         <ForumCard
           id={forum.id}
-          key={forum.id}
-          name={forum.title}
-          participants={forum.participants}
-          lastPostDate={forum.lastPostDate}
+          key={i}
+          name={forum.name}
+          participants={forum.participants.length}
+          lastActivity={forum.lastActivity}
           image={forum.imageSrc}
           author={forum.author}
           description={forum.description}
