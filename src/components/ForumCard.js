@@ -47,7 +47,7 @@ function ForumCard(props) {
               to={`/forum/${props.id}`}
               variant="subtitle1"
             >
-              Forum name
+              {props.name}
             </Typography>
             <Typography variant="caption">
               Last post: {props.lastActivity}
