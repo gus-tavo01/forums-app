@@ -45,7 +45,7 @@ export default class ForumsApi {
   // this.instance.
   // }
 
-  getByFilters = async (params) => this.instance.get('/', params);
+  getByFilters = async (params) => this.instance.get('/', { params });
 
   // post
   // put
