@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
@@ -9,7 +10,8 @@ import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    margin: '10px 0px',
+    marginTop: '10px',
+    padding: '5px',
     minWidth: 320,
     maxWidth: 400,
   },
@@ -23,53 +25,52 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'justify',
     marginBottom: '5px',
   },
-  footer: {
-    marginBottom: '5px',
-  },
 }));
 
 function ForumCard(props) {
   const classes = useStyles();
   return (
-    <Grid container direction="column" className={classes.card}>
-      <Grid container item>
-        <Grid
-          container
-          item
-          justify="flex-start"
-          alignItems="flex-start"
-          wrap="nowrap"
-        >
-          <Avatar src={null} className={classes.image} />
-          <Grid container item direction="column">
-            <Typography
-              component={Link}
-              to={`/forum/${props.id}`}
-              variant="subtitle1"
-            >
-              {props.name}
-            </Typography>
-            <Typography variant="caption">
-              Last post: {props.lastActivity}
-            </Typography>
+    <Paper className={classes.card} variant="outlined">
+      <Grid container direction="column">
+        <Grid container item>
+          <Grid
+            container
+            item
+            justify="flex-start"
+            alignItems="flex-start"
+            wrap="nowrap"
+          >
+            {/* add image source */}
+            <Avatar src={props.image} className={classes.image} />
+            <Grid container item direction="column">
+              <Typography
+                component={Link}
+                to={`/forum/${props.id}`}
+                variant="subtitle1"
+              >
+                {props.name}
+              </Typography>
+              <Typography variant="caption">
+                Last post: {props.lastActivity}
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid container item className={classes.description}>
+            <Typography variant="body1">{props.name}</Typography>
           </Grid>
         </Grid>
-        <Grid container item className={classes.description}>
-          <Typography variant="body1">{props.name}</Typography>
+        <Divider />
+        <Grid container item justify="space-between">
+          <Typography variant="subtitle2">Author: {props.author}</Typography>
+          <Typography>Participants: {props.participants}</Typography>
         </Grid>
       </Grid>
-
-      <Grid container item justify="space-between" className={classes.footer}>
-        <Typography variant="subtitle2">{props.author}</Typography>
-        <Typography>Participants: {props.participants}</Typography>
-      </Grid>
-      <Divider />
-    </Grid>
+    </Paper>
   );
 }
 
 ForumCard.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.string,
   name: PropTypes.string,
   description: PropTypes.string,
   lastActivity: PropTypes.string,
@@ -79,7 +80,7 @@ ForumCard.propTypes = {
 };
 
 ForumCard.defaultProps = {
-  image: '',
+  image: null,
   name: 'Forum Name',
   author: 'Anonymous',
   participants: 0,
