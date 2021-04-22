@@ -37,6 +37,8 @@ const useStyles = makeStyles(() => ({
   paper: {
     marginTop: 15,
     padding: 15,
+    minHeight: '500px',
+    minWidth: '400px',
   },
   form: {
     display: 'flex',
