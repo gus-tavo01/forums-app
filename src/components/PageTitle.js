@@ -7,17 +7,17 @@ const useStyles = makeStyles(() => ({
   title: { marginBottom: 15 },
 }));
 
-function PageTitle({ text }) {
+function PageTitle({ content }) {
   const classes = useStyles();
   return (
     <Typography className={classes.title} variant="h4" component="h2">
-      {text}
+      {content}
     </Typography>
   );
 }
 
 PageTitle.propTypes = {
-  text: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
 };
 
 export default PageTitle;
