@@ -2,6 +2,8 @@
 
 This React app was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+App available [here](https://forums-app.herokuapp.com/)
+
 ## Getting started
 
 ### Install project dependencies
@@ -39,6 +41,7 @@ Your app is ready to be deployed!
 
 - if no forums, disable pagination buttons
 - add floating action create button (if auth)
+- format dates with Day.js lib
 
 ### Forum details
 
@@ -56,8 +59,6 @@ Your app is ready to be deployed!
 
 ## To be defined
 
-- display dates friendly
-  - use Day.js lib
 - UI testing strategy
 - Error handling
   - on api calls

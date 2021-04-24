@@ -29,8 +29,7 @@ const useStyles = makeStyles((theme) => ({
 function ForumDetails() {
   const classes = useStyles();
   const { id } = useParams();
-  // eslint-disable-next-line no-underscore-dangle
-  const forum = useSelector((store) => store.forums.docs.find((f) => f._id === id));
+  const forum = useSelector((store) => store.forums.docs.find((f) => f.id === id));
 
   return (
     <Grid container justify="center">
