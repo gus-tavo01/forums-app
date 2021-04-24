@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
+import FromDate from './FromDate';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -41,7 +42,9 @@ function ForumCard(props) {
               <Typography component={Link} to={`/forum/${id}`} variant="subtitle1">
                 {name}
               </Typography>
-              <Typography variant="caption">Last post: {lastActivity}</Typography>
+              <Typography variant="caption">
+                Last post: <FromDate>{lastActivity}</FromDate>
+              </Typography>
             </Grid>
           </Grid>
           <Grid container item className={classes.description}>

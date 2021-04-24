@@ -41,7 +41,6 @@ Your app is ready to be deployed!
 
 - if no forums, disable pagination buttons
 - add floating action create button (if auth)
-- format dates with Day.js lib
 
 ### Forum details
 
@@ -72,6 +71,9 @@ Your app is ready to be deployed!
   - loaders reducer
   - auth reducer
   - modals reducer?
+- App languages
+  - english
+  - spanish
 
 ## Incoming features
 
