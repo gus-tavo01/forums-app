@@ -1,4 +1,5 @@
 import { ADD_FORUM, LOAD_FORUMS } from '../action-types/forums-action-types';
+
 const initialState = { docs: [] };
 
 export default (state = initialState, action) => {
