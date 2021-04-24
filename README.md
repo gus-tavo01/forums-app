@@ -41,11 +41,12 @@ Your app is ready to be deployed!
 
 - if no forums, disable pagination buttons
 - add floating action create button (if auth)
+- add loader on fetch forums
 
 ### Forum details
 
-- add page skeleton
 - fetch forum topics
+- add loader on fetch topics
 
 ### Topic page
 
@@ -53,7 +54,6 @@ Your app is ready to be deployed!
 
 ## Known issuess
 
-- nav bar width exceeds viewport width
 - nested route does not match
 
 ## To be defined
@@ -72,8 +72,10 @@ Your app is ready to be deployed!
   - auth reducer
   - modals reducer?
 - App languages
-  - english
-  - spanish
+  - switch language
+    - english
+    - spanish
+  - read language from user preferences
 
 ## Incoming features
 
