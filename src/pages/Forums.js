@@ -10,12 +10,15 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
+import FilterListOutlinedIcon from '@material-ui/icons/FilterListOutlined';
 import Pagination from '@material-ui/lab/Pagination';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Tooltip from '@material-ui/core/Tooltip';
 // actions
 import { loadForums } from '../redux/actions/forums-actions';
 import PageTitle from '../components/PageTitle';
@@ -33,8 +36,8 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'center',
   },
-  paper: {
-    padding: 15,
+  root: {
+    padding: 6,
     minWidth: '400px',
   },
   form: {
@@ -50,11 +53,11 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+const defaultFilters = { size: '', name: '', author: '' };
+
 function Forums() {
   const [filtersOpen, setFiltersOpen] = useState(false);
-  const [size, setSize] = useState('');
-  const [name, setName] = useState('');
-  const [author, setAuthor] = useState('');
+  const [filters, setFilters] = useState(defaultFilters);
   const [page, setPage] = useState(1);
 
   const classes = useStyles();
@@ -62,15 +65,8 @@ function Forums() {
   const forums = useSelector((store) => store.forums);
 
   const onSubmit = () => {
-    // Step prepare request
-    const filters = { page, size, author, name };
     // Step dispatch get forums
-    dispatch(loadForums(filters));
-
-    // Step close modal if its open
-    if (filtersOpen) {
-      setFiltersOpen(false);
-    }
+    dispatch(loadForums({ ...filters, page }));
   };
 
   const onPageChange = (ev, value) => {
@@ -82,54 +78,44 @@ function Forums() {
     setFiltersOpen(false);
   };
 
+  const handleClear = () => {
+    setFilters(defaultFilters);
+  };
+
   const handleOpenFilters = () => {
     setFiltersOpen(true);
   };
 
-  const handleName = (ev) => {
-    setName(ev.target.value);
-  };
-
-  const handleAuthor = (ev) => {
-    setAuthor(ev.target.value);
-  };
-
-  const handleForumSize = (ev) => {
-    setSize(ev.target.value);
+  const handleInput = (ev) => {
+    const { target } = ev;
+    const newFilters = { ...filters, [target.name]: target.value };
+    setFilters(newFilters);
   };
 
   return (
-    <Grid container justify="center" className={classes.paper}>
+    <Grid container justify="center" className={classes.root}>
       <PageTitle content="Public forums" />
       <Grid container item direction="column">
-        <Grid container item justify="space-evenly">
+        <Grid container item justify="center" alignItems="center">
+          <Tooltip title="Filters">
+            <IconButton onClick={handleOpenFilters}>
+              <FilterListOutlinedIcon />
+            </IconButton>
+          </Tooltip>
           <TextField
             label="Forum name"
             type="search"
             variant="outlined"
             size="small"
-            onChange={handleName}
+            onChange={handleInput}
+            value={filters.name}
+            name="name"
           />
-          <div>
-            <Button
-              onClick={onSubmit}
-              color="primary"
-              variant="contained"
-              startIcon={<SearchOutlinedIcon />}
-            >
-              Search
-            </Button>
-          </div>
-        </Grid>
-        <Grid container item justify="center">
-          <Button
-            className={classes.input}
-            onClick={handleOpenFilters}
-            color="secondary"
-            variant="outlined"
-          >
-            Add filters
-          </Button>
+          <Tooltip title="Search">
+            <IconButton onClick={onSubmit}>
+              <SearchOutlinedIcon />
+            </IconButton>
+          </Tooltip>
         </Grid>
         <Container className={classes.paginationContainer}>
           <Pagination
@@ -156,23 +142,26 @@ function Forums() {
             label="Forum name"
             variant="outlined"
             fullWidth
-            onChange={handleName}
-            value={name}
+            onChange={handleInput}
+            value={filters.name}
+            name="name"
           />
           <TextField
             label="Author"
             variant="outlined"
             fullWidth
-            onChange={handleAuthor}
-            value={author}
+            onChange={handleInput}
+            value={filters.author}
+            name="author"
           />
           <FormControl variant="outlined" className={classes.formControl}>
             <InputLabel id="select-size">Forum Size</InputLabel>
             <Select
               labelId="select-size"
-              value={size}
-              onChange={handleForumSize}
+              value={filters.size}
+              onChange={handleInput}
               label="Forum Size"
+              name="size"
             >
               <MenuItem value={ForumSizes.open.label}>
                 I dont care ({ForumSizes.open.from} - {ForumSizes.open.to})
@@ -193,11 +182,11 @@ function Forums() {
           </FormControl>
         </DialogContent>
         <DialogActions className={classes.actions}>
-          <Button onClick={handleClose} variant="outlined">
-            Cancel
+          <Button onClick={handleClear} variant="outlined">
+            Clear all
           </Button>
-          <Button onClick={onSubmit} color="primary" variant="contained">
-            Submit
+          <Button onClick={handleClose} color="primary" variant="contained">
+            Okie
           </Button>
         </DialogActions>
       </Dialog>

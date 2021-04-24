@@ -11,8 +11,8 @@ import Divider from '@material-ui/core/Divider';
 const useStyles = makeStyles((theme) => ({
   card: {
     marginTop: '10px',
-    padding: '5px',
-    minWidth: 320,
+    padding: '8px',
+    minWidth: 300,
     maxWidth: 400,
   },
   image: {
