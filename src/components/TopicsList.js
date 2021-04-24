@@ -5,6 +5,8 @@ import TopicCard from './TopicCard';
 function TopicsList(props) {
   const { items } = props;
 
+  if (!items.length) return 'This forum does not have any topic yet 🥱...';
+
   return (
     <>
       {items.map((topic) => (
