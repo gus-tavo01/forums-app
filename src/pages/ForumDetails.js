@@ -36,7 +36,7 @@ function ForumDetails() {
     <Grid container justify="center">
       <Paper className={classes.paper}>
         <Grid container item direction="column">
-          <PageTitle>{forum.name}</PageTitle>
+          <PageTitle content={forum.name} />
           <Grid container item justify="center">
             <Avatar src={null} className={classes.image} />
             {/* edit button */}
