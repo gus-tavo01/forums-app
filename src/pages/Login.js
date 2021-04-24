@@ -38,32 +38,18 @@ function Login() {
     <Grid container justify="center">
       <Paper className={classes.paper}>
         <Grid item container direction="column">
-          <PageTitle>Login</PageTitle>
-          <form className={classes.form} autoComplete={'off'}>
+          <PageTitle content="Login" />
+          <form className={classes.form} autoComplete="off">
             <TextField label="Username" variant="outlined" fullWidth />
-            <TextField
-              label="Password"
-              type="password"
-              variant="outlined"
-              fullWidth
-            />
+            <TextField label="Password" type="password" variant="outlined" fullWidth />
             <Button component={Link} to="/forgot-password">
               Forgot Password
             </Button>
             <div className={classes.buttons}>
-              <Button
-                component={Link}
-                to="/signup"
-                variant="outlined"
-                color="secondary"
-              >
+              <Button component={Link} to="/signup" variant="outlined" color="secondary">
                 Sign Up
               </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleOnSubmit}
-              >
+              <Button variant="contained" color="primary" onClick={handleOnSubmit}>
                 Login
               </Button>
             </div>
