@@ -2,12 +2,7 @@ name: Deploy to heroku and run tests
 
 on:
   push:
-    branches:
-      - master
-
-  pull_request:
-    branches:
-      - master
+    branches: [master]
 
 jobs:
   build:
