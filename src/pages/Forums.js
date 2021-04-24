@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { loadForums } from '../redux/actions/forums-actions';
 // mui components
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -18,7 +17,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
+// actions
+import { loadForums } from '../redux/actions/forums-actions';
 import PageTitle from '../components/PageTitle';
 import ForumsList from '../components/ForumsList';
 // constants
@@ -64,8 +64,6 @@ function Forums() {
   const dispatch = useDispatch();
   const forums = useSelector((store) => store.forums);
 
-  console.log('on render');
-
   const onSubmit = () => {
     // Step prepare request
     const filters = { page, size, author, name };
@@ -104,7 +102,7 @@ function Forums() {
   };
 
   return (
-    <Grid container justify="center" spacing={3}>
+    <Grid container justify="center">
       <Paper className={classes.paper}>
         <PageTitle>Public forums</PageTitle>
         <Grid container item direction="column">
@@ -184,20 +182,16 @@ function Forums() {
                   I dont care ({ForumSizes.open.from} - {ForumSizes.open.to})
                 </MenuItem>
                 <MenuItem value={ForumSizes.small.label}>
-                  {ForumSizes.small.label} ({ForumSizes.small.from} -{' '}
-                  {ForumSizes.small.to})
+                  {ForumSizes.small.label} ({ForumSizes.small.from} - {ForumSizes.small.to})
                 </MenuItem>
                 <MenuItem value={ForumSizes.medium.label}>
-                  {ForumSizes.medium.label} ({ForumSizes.medium.from} -{' '}
-                  {ForumSizes.medium.to})
+                  {ForumSizes.medium.label} ({ForumSizes.medium.from} - {ForumSizes.medium.to})
                 </MenuItem>
                 <MenuItem value={ForumSizes.large.label}>
-                  {ForumSizes.large.label} ({ForumSizes.large.from} -{' '}
-                  {ForumSizes.large.to})
+                  {ForumSizes.large.label} ({ForumSizes.large.from} - {ForumSizes.large.to})
                 </MenuItem>
                 <MenuItem value={ForumSizes.xLarge.label}>
-                  {ForumSizes.xLarge.label} ({ForumSizes.xLarge.from} -{' '}
-                  {ForumSizes.xLarge.to})
+                  {ForumSizes.xLarge.label} ({ForumSizes.xLarge.from} - {ForumSizes.xLarge.to})
                 </MenuItem>
               </Select>
             </FormControl>
