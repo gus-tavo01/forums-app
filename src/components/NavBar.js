@@ -18,9 +18,9 @@ const useStyles = makeStyles(() => ({
 
 function NavBar() {
   const classes = useStyles();
-  const isAuth = true;
+  const isAuth = false;
   return (
-    <Fragment>
+    <>
       <AppBar position="fixed" color="primary">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
@@ -32,7 +32,7 @@ function NavBar() {
         </Toolbar>
       </AppBar>
       <Toolbar />
-    </Fragment>
+    </>
   );
 }
 
