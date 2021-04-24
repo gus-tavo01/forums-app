@@ -13,8 +13,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Avatar from '@material-ui/core/Avatar';
-import PageTitle from '../components/PageTitle';
 import { Link } from 'react-router-dom';
+import PageTitle from '../components/PageTitle';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -67,16 +67,12 @@ function SignUp() {
           </Grid>
           <form autoComplete="off" className={classes.form}>
             <TextField label="Username" variant="outlined" size="small" />
-            <FormControl
-              className={classes.formControl}
-              variant="outlined"
-              size="small"
-            >
+            <FormControl className={classes.formControl} variant="outlined" size="small">
               <InputLabel id="select-question">Secret question</InputLabel>
               <Select
                 labelId="select-question"
                 id="simple-question"
-                value={''}
+                value=""
                 label="Secret question"
                 // onChange={handleChange}
                 size="small"
@@ -89,18 +85,8 @@ function SignUp() {
               </Select>
             </FormControl>
             <TextField label="Answer" variant="outlined" size="small" />
-            <TextField
-              label="Password"
-              variant="outlined"
-              type="password"
-              size="small"
-            />
-            <TextField
-              label="Repeat password"
-              variant="outlined"
-              type="password"
-              size="small"
-            />
+            <TextField label="Password" variant="outlined" type="password" size="small" />
+            <TextField label="Repeat password" variant="outlined" type="password" size="small" />
             <Button variant="contained" color="primary">
               Submit
             </Button>
