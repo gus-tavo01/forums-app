@@ -28,41 +28,30 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ForumCard(props) {
+  const { image, name, id, lastActivity, description, author, participants } = props;
   const classes = useStyles();
   return (
     <Paper className={classes.card} variant="outlined">
       <Grid container direction="column">
         <Grid container item>
-          <Grid
-            container
-            item
-            justify="flex-start"
-            alignItems="flex-start"
-            wrap="nowrap"
-          >
+          <Grid container item justify="flex-start" alignItems="flex-start" wrap="nowrap">
             {/* add image source */}
-            <Avatar src={props.image} className={classes.image} />
+            <Avatar src={image} className={classes.image} />
             <Grid container item direction="column">
-              <Typography
-                component={Link}
-                to={`/forum/${props.id}`}
-                variant="subtitle1"
-              >
-                {props.name}
+              <Typography component={Link} to={`/forum/${id}`} variant="subtitle1">
+                {name}
               </Typography>
-              <Typography variant="caption">
-                Last post: {props.lastActivity}
-              </Typography>
+              <Typography variant="caption">Last post: {lastActivity}</Typography>
             </Grid>
           </Grid>
           <Grid container item className={classes.description}>
-            <Typography variant="body1">{props.name}</Typography>
+            <Typography variant="body1">{description}</Typography>
           </Grid>
         </Grid>
         <Divider />
         <Grid container item justify="space-between">
-          <Typography variant="subtitle2">Author: {props.author}</Typography>
-          <Typography>Participants: {props.participants}</Typography>
+          <Typography variant="subtitle2">Author: {author}</Typography>
+          <Typography>Participants: {participants}</Typography>
         </Grid>
       </Grid>
     </Paper>
@@ -70,20 +59,17 @@ function ForumCard(props) {
 }
 
 ForumCard.propTypes = {
-  id: PropTypes.string,
-  name: PropTypes.string,
-  description: PropTypes.string,
-  lastActivity: PropTypes.string,
-  author: PropTypes.string,
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  lastActivity: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  participants: PropTypes.number.isRequired,
   image: PropTypes.string,
-  participants: PropTypes.number,
 };
 
 ForumCard.defaultProps = {
   image: null,
-  name: 'Forum Name',
-  author: 'Anonymous',
-  participants: 0,
 };
 
 export default ForumCard;
