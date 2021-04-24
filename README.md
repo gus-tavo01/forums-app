@@ -37,9 +37,8 @@ Your app is ready to be deployed!
 
 ### Public forums
 
-- open filters modal
-- consume redux
-- search forums by filters
+- if no forums, disable pagination buttons
+- add floating action create button (if auth)
 
 ### Forum details
 
@@ -57,8 +56,12 @@ Your app is ready to be deployed!
 
 ## To be defined
 
+- display dates friendly
+  - use Day.js lib
 - UI testing strategy
 - Error handling
+  - on api calls
+  - on forms fill
 - About Page
   - add my photo
   - short self description
@@ -71,6 +74,9 @@ Your app is ready to be deployed!
 
 ## Incoming features
 
+- View forum details
+  - topics
+  - participants?
 - Login
 - Register
 - Forgot password
