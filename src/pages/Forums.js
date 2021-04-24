@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
@@ -35,9 +34,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
   },
   paper: {
-    marginTop: 15,
     padding: 15,
-    minHeight: '500px',
     minWidth: '400px',
   },
   form: {
@@ -102,110 +99,108 @@ function Forums() {
   };
 
   return (
-    <Grid container justify="center">
-      <Paper className={classes.paper}>
-        <PageTitle>Public forums</PageTitle>
-        <Grid container item direction="column">
-          <Grid container item justify="space-evenly">
-            <TextField
-              label="Forum name"
-              type="search"
-              variant="outlined"
-              size="small"
-              onChange={handleName}
-            />
-            <div>
-              <Button
-                onClick={onSubmit}
-                color="primary"
-                variant="contained"
-                startIcon={<SearchOutlinedIcon />}
-              >
-                Search
-              </Button>
-            </div>
-          </Grid>
-          <Grid container item justify="center">
+    <Grid container justify="center" className={classes.paper}>
+      <PageTitle content="Public forums" />
+      <Grid container item direction="column">
+        <Grid container item justify="space-evenly">
+          <TextField
+            label="Forum name"
+            type="search"
+            variant="outlined"
+            size="small"
+            onChange={handleName}
+          />
+          <div>
             <Button
-              className={classes.input}
-              onClick={handleOpenFilters}
-              color="secondary"
-              variant="outlined"
+              onClick={onSubmit}
+              color="primary"
+              variant="contained"
+              startIcon={<SearchOutlinedIcon />}
             >
-              Add filters
+              Search
             </Button>
-          </Grid>
-          <Container className={classes.paginationContainer}>
-            <Pagination
-              count={forums.totalPages}
-              defaultPage={1}
-              page={page}
-              siblingCount={0}
-              boundaryCount={2}
-              onChange={onPageChange}
-              variant="outlined"
-              color="secondary"
-              showFirstButton
-              showLastButton
-            />
-          </Container>
-          <Grid container item direction="column" alignItems="center">
-            <ForumsList forums={forums.docs} />
-          </Grid>
+          </div>
         </Grid>
-        <Dialog open={filtersOpen} onClose={handleClose}>
-          <DialogTitle id="form-dialog-title">Forum Search Filters</DialogTitle>
-          <DialogContent className={classes.form}>
-            <TextField
-              label="Forum name"
-              variant="outlined"
-              fullWidth
-              onChange={handleName}
-              value={name}
-            />
-            <TextField
-              label="Author"
-              variant="outlined"
-              fullWidth
-              onChange={handleAuthor}
-              value={author}
-            />
-            <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel id="select-size">Forum Size</InputLabel>
-              <Select
-                labelId="select-size"
-                value={size}
-                onChange={handleForumSize}
-                label="Forum Size"
-              >
-                <MenuItem value={ForumSizes.open.label}>
-                  I dont care ({ForumSizes.open.from} - {ForumSizes.open.to})
-                </MenuItem>
-                <MenuItem value={ForumSizes.small.label}>
-                  {ForumSizes.small.label} ({ForumSizes.small.from} - {ForumSizes.small.to})
-                </MenuItem>
-                <MenuItem value={ForumSizes.medium.label}>
-                  {ForumSizes.medium.label} ({ForumSizes.medium.from} - {ForumSizes.medium.to})
-                </MenuItem>
-                <MenuItem value={ForumSizes.large.label}>
-                  {ForumSizes.large.label} ({ForumSizes.large.from} - {ForumSizes.large.to})
-                </MenuItem>
-                <MenuItem value={ForumSizes.xLarge.label}>
-                  {ForumSizes.xLarge.label} ({ForumSizes.xLarge.from} - {ForumSizes.xLarge.to})
-                </MenuItem>
-              </Select>
-            </FormControl>
-          </DialogContent>
-          <DialogActions className={classes.actions}>
-            <Button onClick={handleClose} variant="outlined">
-              Cancel
-            </Button>
-            <Button onClick={onSubmit} color="primary" variant="contained">
-              Submit
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </Paper>
+        <Grid container item justify="center">
+          <Button
+            className={classes.input}
+            onClick={handleOpenFilters}
+            color="secondary"
+            variant="outlined"
+          >
+            Add filters
+          </Button>
+        </Grid>
+        <Container className={classes.paginationContainer}>
+          <Pagination
+            count={forums.totalPages}
+            defaultPage={1}
+            page={page}
+            siblingCount={0}
+            boundaryCount={2}
+            onChange={onPageChange}
+            variant="outlined"
+            color="secondary"
+            showFirstButton
+            showLastButton
+          />
+        </Container>
+        <Grid container item direction="column" alignItems="center">
+          <ForumsList forums={forums.docs} />
+        </Grid>
+      </Grid>
+      <Dialog open={filtersOpen} onClose={handleClose}>
+        <DialogTitle id="form-dialog-title">Forum Search Filters</DialogTitle>
+        <DialogContent className={classes.form}>
+          <TextField
+            label="Forum name"
+            variant="outlined"
+            fullWidth
+            onChange={handleName}
+            value={name}
+          />
+          <TextField
+            label="Author"
+            variant="outlined"
+            fullWidth
+            onChange={handleAuthor}
+            value={author}
+          />
+          <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel id="select-size">Forum Size</InputLabel>
+            <Select
+              labelId="select-size"
+              value={size}
+              onChange={handleForumSize}
+              label="Forum Size"
+            >
+              <MenuItem value={ForumSizes.open.label}>
+                I dont care ({ForumSizes.open.from} - {ForumSizes.open.to})
+              </MenuItem>
+              <MenuItem value={ForumSizes.small.label}>
+                {ForumSizes.small.label} ({ForumSizes.small.from} - {ForumSizes.small.to})
+              </MenuItem>
+              <MenuItem value={ForumSizes.medium.label}>
+                {ForumSizes.medium.label} ({ForumSizes.medium.from} - {ForumSizes.medium.to})
+              </MenuItem>
+              <MenuItem value={ForumSizes.large.label}>
+                {ForumSizes.large.label} ({ForumSizes.large.from} - {ForumSizes.large.to})
+              </MenuItem>
+              <MenuItem value={ForumSizes.xLarge.label}>
+                {ForumSizes.xLarge.label} ({ForumSizes.xLarge.from} - {ForumSizes.xLarge.to})
+              </MenuItem>
+            </Select>
+          </FormControl>
+        </DialogContent>
+        <DialogActions className={classes.actions}>
+          <Button onClick={handleClose} variant="outlined">
+            Cancel
+          </Button>
+          <Button onClick={onSubmit} color="primary" variant="contained">
+            Submit
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Grid>
   );
 }
