@@ -26,7 +26,7 @@ import ForumsList from '../components/ForumsList';
 // constants
 import ForumSizes from '../constants/ForumSizes';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   input: {
     margin: '10px 0px',
   },
@@ -37,8 +37,8 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
   },
   root: {
-    padding: 6,
-    minWidth: '400px',
+    padding: theme.spacing(1),
+    minWidth: '300px',
   },
   form: {
     display: 'flex',
