@@ -55,7 +55,7 @@ function ForumDetails() {
       <Divider />
       <Grid item container justify="center">
         <Typography component="h3" variant="h5">
-          Topics
+          Topics 📣
         </Typography>
       </Grid>
       <Grid container item justify="center" spacing={2}>
