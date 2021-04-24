@@ -38,7 +38,7 @@ function Login() {
     <Grid container justify="center">
       <Paper className={classes.paper}>
         <Grid item container direction="column">
-          <PageTitle>Login</PageTitle>
+          <PageTitle content="Login" />
           <form className={classes.form} autoComplete="off">
             <TextField label="Username" variant="outlined" fullWidth />
             <TextField label="Password" type="password" variant="outlined" fullWidth />
