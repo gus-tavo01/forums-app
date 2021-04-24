@@ -12,8 +12,10 @@ import FromDate from './FromDate';
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: '300px',
-    marginTop: theme.spacing(1),
-    padding: theme.spacing(2),
+  },
+  card: {
+    width: '100%',
+    padding: theme.spacing(1),
   },
 }));
 
@@ -22,8 +24,8 @@ function TopicCard(props) {
   const { name, lastActivity, comments } = props;
 
   return (
-    <Paper className={classes.root}>
-      <Grid container direction="column" justify="center">
+    <Grid container item xs={12} sm={6} md={4} lg={4} xl={3} className={classes.root}>
+      <Paper className={classes.card}>
         <Typography component="p" variant="h6">
           {name}
         </Typography>
@@ -35,8 +37,8 @@ function TopicCard(props) {
         </Typography>
 
         <Typography component="span">Comments: {comments}</Typography>
-      </Grid>
-    </Paper>
+      </Paper>
+    </Grid>
   );
 }
 
