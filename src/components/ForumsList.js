@@ -1,30 +1,40 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import ForumCard from './ForumCard';
 
 function ForumsList(props) {
+  const { forums } = props;
   return (
-    <Fragment>
-      {props.forums.map((forum, i) => (
+    <>
+      {forums.map((forum) => (
         <ForumCard
-          id={forum._id}
-          key={i}
+          id={forum.id}
+          key={forum.id}
           name={forum.name}
-          participants={forum.participants.length}
+          participants={forum.participants}
           lastActivity={forum.lastActivity}
           image={forum.imageSrc}
           author={forum.author}
           description={forum.description}
         />
       ))}
-    </Fragment>
+    </>
   );
 }
 
 export default ForumsList;
 
 ForumsList.propTypes = {
-  forums: PropTypes.array,
+  forums: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      author: PropTypes.string,
+      description: PropTypes.string,
+      image: PropTypes.string,
+      lastActivity: PropTypes.string,
+      participants: PropTypes.number,
+    }),
+  ),
 };
 
 ForumsList.defaultProps = {
