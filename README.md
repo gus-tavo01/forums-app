@@ -45,12 +45,15 @@ Your app is ready to be deployed!
 
 ### Forum details
 
-- fetch forum topics
-- add loader on fetch topics
+- create topics service
+- implement topics service on action
 
 ### Topic page
 
-- TBD
+- Add page skeleton
+- Layout
+  - Name/description section
+  - Comments section
 
 ## Known issuess
 
@@ -68,7 +71,6 @@ Your app is ready to be deployed!
   - my cats photo
 - Redux
   - errors reducer
-  - loaders reducer
   - auth reducer
   - modals reducer?
 - App languages
@@ -91,3 +93,4 @@ Your app is ready to be deployed!
 - Create a topic
 - Post a comment
 - Invite users to a forum
+- Switch language

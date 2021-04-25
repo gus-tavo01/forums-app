@@ -5,10 +5,17 @@ import TopicCard from './TopicCard';
 function TopicsList(props) {
   const { items } = props;
 
+  if (!items.length) return 'This forum does not have any topic yet 😕...';
+
   return (
     <>
       {items.map((topic) => (
-        <TopicCard name={topic.name} lastActivity={topic.lastActivity} comments={topic.comments} />
+        <TopicCard
+          key={topic.id}
+          name={topic.name}
+          lastActivity={topic.lastActivity}
+          comments={topic.comments}
+        />
       ))}
     </>
   );

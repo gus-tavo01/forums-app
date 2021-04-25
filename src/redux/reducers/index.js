@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
+import loaders from './loaders-reducer';
 import forums from './forums-reducer';
-// posts, messages, errors, loadingStatus
+import topics from './topics-reducer';
+// messages, errors
 
-export default combineReducers({ forums });
+export default combineReducers({ forums, loaders, topics });
