@@ -19,6 +19,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Tooltip from '@material-ui/core/Tooltip';
+import CircularProgress from '@material-ui/core/CircularProgress';
 // actions
 import { loadForums } from '../redux/actions/forums-actions';
 import PageTitle from '../components/PageTitle';
@@ -63,6 +64,7 @@ function Forums() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const forums = useSelector((store) => store.forums);
+  const pageLoaders = useSelector((store) => store.loaders.forums);
 
   const onSubmit = () => {
     // Step dispatch get forums
@@ -129,10 +131,11 @@ function Forums() {
             color="secondary"
             showFirstButton
             showLastButton
+            disabled={!forums.docs.length}
           />
         </Container>
-        <Grid container item direction="column" alignItems="center">
-          <ForumsList forums={forums.docs} />
+        <Grid container item direction="column" alignItems="center" justify="center">
+          {pageLoaders.list ? <CircularProgress size={80} /> : <ForumsList forums={forums.docs} />}
         </Grid>
       </Grid>
       <Dialog open={filtersOpen} onClose={handleClose}>
