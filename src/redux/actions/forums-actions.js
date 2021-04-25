@@ -1,18 +1,28 @@
 import ForumsService from '../../services/forums-service';
 import { LOAD_FORUMS } from '../action-types/forums-action-types';
+import { SET_FORUMS_IS_LOADING } from '../action-types/loaders-action-types';
 
 export const loadForums = (payload) => async (dispatch) => {
-  // set forums loading on true
+  // Step display loading spinner on forums list section
+  dispatch({ type: SET_FORUMS_IS_LOADING, payload: { list: true } });
+
+  // Step fetch forums from service
   const forumsService = new ForumsService();
   const response = await forumsService.getForums(payload);
+
+  // Step if errors dispatch error action
   // if (!response.fields)
-  // dispatch error action
-  // success flow
+  // dispatch({error action});
+
+  // Step load forums on UI
   dispatch({ type: LOAD_FORUMS, payload: response.payload });
-  // set forums loading on false
+
+  // Step hide loading spinner
+  dispatch({ type: SET_FORUMS_IS_LOADING, payload: { list: false } });
 };
 
-export const addForum = (payload) => (dispatch) => {
+export const addForum = (payload) => async (dispatch) => {
+  // TODO
   dispatch({ type: 'ADD_FORUM', payload });
 };
 
