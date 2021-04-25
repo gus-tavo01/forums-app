@@ -10,7 +10,12 @@ function TopicsList(props) {
   return (
     <>
       {items.map((topic) => (
-        <TopicCard name={topic.name} lastActivity={topic.lastActivity} comments={topic.comments} />
+        <TopicCard
+          key={topic.id}
+          name={topic.name}
+          lastActivity={topic.lastActivity}
+          comments={topic.comments}
+        />
       ))}
     </>
   );
