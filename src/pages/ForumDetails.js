@@ -34,6 +34,8 @@ function ForumDetails() {
   const topics = useSelector((store) => store.topics.docs);
 
   useEffect(() => {
+    // TODO
+    // handle filters
     const filters = { forumId: id };
     dispatch(loadTopics(filters));
   }, []);
