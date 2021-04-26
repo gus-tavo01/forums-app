@@ -13,7 +13,7 @@ function TopicsList(props) {
         <TopicCard
           key={topic.id}
           name={topic.name}
-          lastActivity={topic.lastActivity}
+          lastActivity={topic.updateDate || topic.createDate}
           comments={topic.comments}
         />
       ))}
