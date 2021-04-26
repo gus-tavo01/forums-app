@@ -5,7 +5,7 @@ export default class ForumsService {
     this.forumsApi = new ForumsApi();
   }
 
-  getForums = async (filters) => {
+  get = async (filters) => {
     const params = {};
     if (filters.page) {
       params.page = filters.page;
@@ -22,7 +22,7 @@ export default class ForumsService {
 
     // TODO
     // handle errors
-    const response = await this.forumsApi.getByFilters(params);
+    const response = await this.forumsApi.forumsGet(params);
     return response;
   };
 }
