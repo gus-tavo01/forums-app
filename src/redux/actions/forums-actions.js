@@ -8,7 +8,7 @@ export const loadForums = (payload) => async (dispatch) => {
 
   // Step fetch forums from service
   const forumsService = new ForumsService();
-  const response = await forumsService.getForums(payload);
+  const response = await forumsService.get(payload);
 
   // Step if errors dispatch error action
   // if (!response.fields)

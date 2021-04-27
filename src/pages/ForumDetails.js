@@ -8,6 +8,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
 // components
 import FromDate from '../components/FromDate';
 import TopicsList from '../components/TopicsList';
@@ -19,8 +20,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
   },
   image: {
-    width: theme.spacing(8),
-    height: theme.spacing(8),
+    width: theme.spacing(14),
+    height: theme.spacing(18),
     marginRight: theme.spacing(1),
   },
 }));
@@ -34,6 +35,8 @@ function ForumDetails() {
   const topics = useSelector((store) => store.topics.docs);
 
   useEffect(() => {
+    // TODO
+    // handle filters
     const filters = { forumId: id };
     dispatch(loadTopics(filters));
   }, []);
@@ -41,7 +44,9 @@ function ForumDetails() {
   return (
     <Grid container justify="center" direction="column" className={classes.root} spacing={3}>
       <Grid container item justify="center" alignItems="center">
-        <Avatar src={forum.imageSrc} className={classes.image} />
+        <Avatar src={forum.imageSrc} className={classes.image} variant="rounded">
+          <ForumOutlinedIcon />
+        </Avatar>
         <Typography component="h2" variant="h4">
           {forum.name}
         </Typography>

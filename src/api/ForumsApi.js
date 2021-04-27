@@ -26,29 +26,47 @@ function errorCallback(error) {
 }
 
 export default class ForumsApi {
-  constructor(timeout = 35000) {
+  constructor(timeout = 5000) {
     this.timeout = timeout;
     const instance = axios.create({
-      baseURL: `${ForumsApiUrl}/api/v0/forums`,
+      baseURL: `${ForumsApiUrl}/api/v0`,
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        // TBD:
-        // Authorization: `Bearer ${token}`,
       },
     });
     instance.interceptors.response.use(successCallback, errorCallback);
     this.instance = instance;
   }
 
-  // setToken = (token) => {
-  // this.instance.
-  // }
+  setToken = (token) => {
+    this.instance.defaults.headers.common.Authorization = `Bearer ${token}`;
+  };
 
-  getByFilters = async (params) => this.instance.get('/', { params });
+  // #region Forums endpoint
+  forumsGet = async (params) => this.instance.get('/forums', { params });
 
-  // post
-  // put
-  // delete
-  // getById?
+  // forumsPost
+  // forumsPatch
+  // forumsDelete
+  // forumsGetById
+  // #endregion Forums endpoint
+
+  // #region Topics endpoints
+  topicsGet = async (forumId, params) => this.instance.get(`/forums/${forumId}/topics`, { params });
+  // topicsPost
+  // topicsGetById
+  // topicsPatch
+  // topicsDelete
+  // #endregion Topics endpoints
+
+  // TODO
+  // Comments endpoint
+  // Users endpoint
+
+  // #region Auth endpoint
+  // authLogin
+  // authRegister
+  // authPwdReset
+  // #endregion Auth endpoint
 }
