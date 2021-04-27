@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
+import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
 import Divider from '@material-ui/core/Divider';
 import FromDate from './FromDate';
 
@@ -36,8 +37,9 @@ function ForumCard(props) {
       <Grid container direction="column">
         <Grid container item>
           <Grid container item justify="flex-start" alignItems="flex-start" wrap="nowrap">
-            {/* add image source */}
-            <Avatar src={image} className={classes.image} />
+            <Avatar src={image} className={classes.image}>
+              <ForumOutlinedIcon />
+            </Avatar>
             <Grid container item direction="column">
               <Typography component={Link} to={`/forum/${id}`} variant="subtitle1">
                 {name}
