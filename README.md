@@ -41,23 +41,18 @@ Your app is ready to be deployed!
 
 - if no forums, disable pagination buttons
 - add floating action create button (if auth)
-- add loader on fetch forums
 
 ### Forum details
 
-- create topics service
-- implement topics service on action
-
 ### Topic page
 
-- Add page skeleton
-- Layout
-  - Name/description section
-  - Comments section
+- implement topics list component
+- implement comments service
+- add spinner when load comments
 
 ## Known issuess
 
-- nested route does not match
+- none 😮
 
 ## To be defined
 
@@ -82,8 +77,7 @@ Your app is ready to be deployed!
 ## Incoming features
 
 - View forum details
-  - topics
-  - participants?
+  - participants (when auth)
 - Login
 - Register
 - Forgot password
@@ -94,3 +88,6 @@ Your app is ready to be deployed!
 - Post a comment
 - Invite users to a forum
 - Switch language
+- Change app theme
+- Select an image for the forum
+- Select an avatar image
