@@ -14,7 +14,7 @@ describe('Forums Service getByFilters', () => {
     };
 
     // Act
-    const response = await forumsService.getForums(filters);
+    const response = await forumsService.get(filters);
 
     // Assert
     expect(response).not.toBeNull();
