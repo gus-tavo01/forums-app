@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import { Link } from 'react-router-dom';
 // components
 import FromDate from './FromDate';
 
@@ -21,12 +22,12 @@ const useStyles = makeStyles((theme) => ({
 
 function TopicCard(props) {
   const classes = useStyles();
-  const { name, lastActivity, comments } = props;
+  const { id, name, lastActivity, comments } = props;
 
   return (
     <Grid container item xs={12} sm={6} md={4} lg={4} xl={3} className={classes.root}>
       <Paper className={classes.card}>
-        <Typography component="p" variant="h6">
+        <Typography component={Link} to={`/topic/${id}`} variant="h6">
           {name}
         </Typography>
 
@@ -43,6 +44,7 @@ function TopicCard(props) {
 }
 
 TopicCard.propTypes = {
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   lastActivity: PropTypes.string.isRequired,
   comments: PropTypes.number,
