@@ -34,12 +34,12 @@ function App() {
         <Route path="/forum/:id">
           <ForumDetails />
         </Route>
-        <Route path="/forum/:id/topic/:id">
+        <Route path="/topic/:id">
           <TopicDetails />
         </Route>
         {/*
         /my-forums
-        /notifications
+        /notifications?
         /account
         */}
         <Route path="*">
