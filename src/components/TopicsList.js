@@ -12,6 +12,7 @@ function TopicsList(props) {
       {items.map((topic) => (
         <TopicCard
           key={topic.id}
+          id={topic.id}
           name={topic.name}
           lastActivity={topic.updateDate || topic.createDate}
           comments={topic.comments}
@@ -24,9 +25,11 @@ function TopicsList(props) {
 TopicsList.propTypes = {
   items: PropTypes.arrayOf(
     PropTypes.shape({
+      id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      lastActivity: PropTypes.string.isRequired,
+      createDate: PropTypes.string.isRequired,
       comments: PropTypes.number.isRequired,
+      updateDate: PropTypes.string,
     }),
   ),
 };
