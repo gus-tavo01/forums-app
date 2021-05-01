@@ -1,11 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// components
+import CommentCard from './CommentCard';
 
 function CommentsList(props) {
   const { items } = props;
-
-  if (!items.length) return <div>No comments yet 💬</div>;
-  return items.map((item) => <div>{item.message}</div>);
+  return (
+    <>
+      {items.map((item) => (
+        <CommentCard
+          key={item.id}
+          from={item.from}
+          to={item.to}
+          message={item.message}
+          date={item.createDate}
+          likes={item.likes}
+          dislikes={item.dislikes}
+        />
+      ))}
+    </>
+  );
 }
 
 CommentsList.propTypes = {
