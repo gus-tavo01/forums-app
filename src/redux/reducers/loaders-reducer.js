@@ -1,5 +1,10 @@
-import { SET_FORUMS_IS_LOADING, SET_FORUM_IS_LOADING } from '../action-types/loaders-action-types';
+import {
+  SET_FORUMS_IS_LOADING,
+  SET_FORUM_IS_LOADING,
+  SET_TOPIC_IS_LOADING,
+} from '../action-types/loaders-action-types';
 
+// who is loading?
 const initialState = {
   forums: { list: false, page: false },
   forum: { topics: false, page: false },
@@ -12,9 +17,11 @@ export default (state = initialState, action) => {
       return { ...state, forums: { ...state.forums, ...action.payload } };
     case SET_FORUM_IS_LOADING:
       return { ...state, forum: { ...state.forum, ...action.payload } };
-    // SET_TOPIC_IS_LOADING
+    case SET_TOPIC_IS_LOADING:
+      return { ...state, topic: { ...state.topic, ...action.payload } };
     // SET_PARTICIPANTS_IS_LOADING
     // SET_LOGIN_IS_LOADING
+    // SET_REGISTER_IS_LOADING
     default:
       return state;
   }
