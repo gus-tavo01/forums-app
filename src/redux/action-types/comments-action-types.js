@@ -1,4 +1,5 @@
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const LOAD_COMMENTS = 'LOAD_COMMENT';
+export const CLEAN_COMMENTS = 'CLEAN_COMMENTS';
 export const MODIFY_COMMENT = 'MODIFY_COMMENT';
 export const REMOVE_COMMENT = 'REMOVE_COMMENT';
