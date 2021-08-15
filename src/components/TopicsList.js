@@ -15,7 +15,7 @@ function TopicsList(props) {
           id={topic.id}
           name={topic.name}
           lastActivity={topic.updateDate || topic.createDate}
-          comments={topic.comments}
+          comments={topic.comments.length}
         />
       ))}
     </>

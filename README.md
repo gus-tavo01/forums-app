@@ -41,18 +41,25 @@ Your app is ready to be deployed!
 
 - if no forums, disable pagination buttons
 - add floating action create button (if auth)
+- disbale search button when searching
+- enable when spinner ends
 
 ### Forum details
 
 ### Topic page
 
-- implement topics list component
-- implement comments service
-- add spinner when load comments
+- create comments service
+
+### Comments section
+
+- Arrange replies (if reply, make a right indent)
+- Show first 15 comments, add a show more text button
+- Show first 15 replies, add a show more text button
+- highlight liked or disliked button on each comment
 
 ## Known issuess
 
-- none 😮
+- Code is pushed to master when tests do not pass
 
 ## To be defined
 
