@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ForumsApiUrl } from '../constants/Api';
+import { ForumsApiUrl, Timeout } from '../constants/Api';
 
 function successCallback(response) {
   return response.data;
@@ -26,7 +26,7 @@ function errorCallback(error) {
 }
 
 export default class ForumsApi {
-  constructor(timeout = 5000) {
+  constructor(timeout = Timeout) {
     this.timeout = timeout;
     const instance = axios.create({
       baseURL: `${ForumsApiUrl}/api/v0`,
@@ -42,6 +42,13 @@ export default class ForumsApi {
   setToken = (token) => {
     this.instance.defaults.headers.common.Authorization = `Bearer ${token}`;
   };
+
+  // #region Auth endpoint
+  authLogin = async (user) => this.instance.post('/auth', user);
+
+  // authRegister
+  // authPwdReset
+  // #endregion Auth endpoint
 
   // #region Forums endpoint
   forumsGet = async (params) => this.instance.get('/forums', { params });
@@ -63,10 +70,4 @@ export default class ForumsApi {
   // TODO
   // Comments endpoint
   // Users endpoint
-
-  // #region Auth endpoint
-  // authLogin
-  // authRegister
-  // authPwdReset
-  // #endregion Auth endpoint
 }
