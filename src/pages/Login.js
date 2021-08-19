@@ -4,11 +4,13 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../redux/actions/auth-actions';
 import PageTitle from '../components/PageTitle';
 
+const circularSize = 24;
 const useStyles = makeStyles(() => ({
   paper: {
     minWidth: 320,
@@ -27,6 +29,16 @@ const useStyles = makeStyles(() => ({
       margin: '10px 0px 10px 0px',
     },
   },
+  buttonWrapper: {
+    position: 'relative',
+  },
+  buttonProgress: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginTop: (circularSize / 2) * -1,
+    marginLeft: (circularSize / 2) * -1,
+  },
 }));
 
 function Login() {
@@ -35,6 +47,7 @@ function Login() {
   const { isLoggedIn, logginIn } = useSelector((state) => state.auth);
   const history = useHistory();
   const [inputs, setInputs] = useState({ username: '', password: '' });
+  const { username, password } = inputs;
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -48,9 +61,11 @@ function Login() {
   };
 
   const handleOnSubmit = async (e) => {
-    e.preventDefault();
-    await dispatch(login(inputs));
-    history.push('/');
+    if (!logginIn) {
+      e.preventDefault();
+      await dispatch(login(inputs));
+      history.push('/');
+    }
   };
 
   return (
@@ -58,14 +73,13 @@ function Login() {
       <Paper className={classes.paper}>
         <Grid item container direction="column">
           <PageTitle content="Login" />
-          {logginIn && <span>Loading... tiriririri</span>}
           <form className={classes.form} autoComplete="off" onSubmit={handleOnSubmit}>
             <TextField
               label="Username"
               variant="outlined"
               fullWidth
               name="username"
-              value={inputs.username}
+              value={username}
               onChange={handleOnChange}
             />
             <TextField
@@ -74,7 +88,7 @@ function Login() {
               variant="outlined"
               fullWidth
               name="password"
-              value={inputs.password}
+              value={password}
               onChange={handleOnChange}
             />
             <Button component={Link} to="/forgot-password">
@@ -84,9 +98,20 @@ function Login() {
               <Button component={Link} to="/signup" variant="outlined" color="secondary">
                 Sign Up
               </Button>
-              <Button variant="contained" color="primary" type="submit">
-                Login
-              </Button>
+
+              <div className={classes.buttonWrapper}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  disabled={logginIn || !username.trim() || !password.trim()}
+                >
+                  Login
+                </Button>
+                {logginIn && (
+                  <CircularProgress className={classes.buttonProgress} size={circularSize} />
+                )}
+              </div>
             </div>
           </form>
         </Grid>
