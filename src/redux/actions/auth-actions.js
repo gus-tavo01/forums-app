@@ -13,13 +13,12 @@ export const login = (authData) => async (dispatch) => {
   // handle service response
   if (response.errorMessage) {
     dispatch({ type: authConstants.LOGIN_FAILURE });
+    // dispatch an error message on UI
+  } else {
+    const { payload } = response;
+    // store token and create user session
+    dispatch({ type: authConstants.LOGIN_SUCCESS, payload });
   }
-
-  // response.payload.token;
-  const payload = { token: 'my-fake-token' };
-
-  // store token and create user session
-  dispatch({ type: authConstants.LOGIN_SUCCESS, payload });
 };
 
 export const logout = () => {
