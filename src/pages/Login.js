@@ -4,11 +4,12 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
-import CircularProgress from '@material-ui/core/CircularProgress';
+// import CircularProgress from '@material-ui/core/CircularProgress';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../redux/actions/auth-actions';
 import PageTitle from '../components/PageTitle';
+import LoadingButton from '../components/LoadingButton';
 
 const circularSize = 24;
 const useStyles = makeStyles(() => ({
@@ -99,7 +100,7 @@ function Login() {
                 Sign Up
               </Button>
 
-              <div className={classes.buttonWrapper}>
+              <LoadingButton loading={!!logginIn}>
                 <Button
                   variant="contained"
                   color="primary"
@@ -108,10 +109,7 @@ function Login() {
                 >
                   Login
                 </Button>
-                {logginIn && (
-                  <CircularProgress className={classes.buttonProgress} size={circularSize} />
-                )}
-              </div>
+              </LoadingButton>
             </div>
           </form>
         </Grid>
