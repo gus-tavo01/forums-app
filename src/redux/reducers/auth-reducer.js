@@ -7,7 +7,7 @@ const clearedState = {};
 const initialState = token ? { isLoggedIn: true, token } : clearedState;
 
 export default (state = initialState, action) => {
-  switch (action) {
+  switch (action.type) {
     case LOGIN_REQUEST:
       return { logginIn: true };
 
