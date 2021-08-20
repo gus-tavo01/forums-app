@@ -19,12 +19,13 @@ export const login = (authData) => async (dispatch) => {
 
   const { payload } = response;
   // store token and create user session
+  sessionStorage.setItem('user', payload.token);
   dispatch({ type: authConstants.LOGIN_SUCCESS, payload });
   return true;
 };
 
 export const logout = () => {
-  localStorage.removeItem('user');
+  sessionStorage.removeItem('user');
   return { type: authConstants.LOGOUT };
 };
 

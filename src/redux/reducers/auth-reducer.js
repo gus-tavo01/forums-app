@@ -2,7 +2,7 @@ import authConstants from '../action-types/auth-action-types';
 
 const { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT } = authConstants;
 
-const token = localStorage.getItem('user');
+const token = sessionStorage.getItem('user');
 const clearedState = {};
 const initialState = token ? { isLoggedIn: true, token } : clearedState;
 
