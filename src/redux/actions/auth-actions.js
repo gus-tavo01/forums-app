@@ -14,11 +14,13 @@ export const login = (authData) => async (dispatch) => {
   if (response.errorMessage) {
     dispatch({ type: authConstants.LOGIN_FAILURE });
     // dispatch an error message on UI
-  } else {
-    const { payload } = response;
-    // store token and create user session
-    dispatch({ type: authConstants.LOGIN_SUCCESS, payload });
+    return false;
   }
+
+  const { payload } = response;
+  // store token and create user session
+  dispatch({ type: authConstants.LOGIN_SUCCESS, payload });
+  return true;
 };
 
 export const logout = () => {
