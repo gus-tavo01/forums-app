@@ -37,12 +37,12 @@ export default class ForumsApi {
   };
 
   // #region Auth endpoint
-  authLogin = async (user) => this.instance.post('/auth/login', user);
+  authLogin = async (authData) => this.instance.post('/auth/login', authData);
 
-  // authRegister
+  authRegister = async (userData) => this.instance.post('auth/register', userData);
+
   // authPwdReset
   // authForgotPwd
-
   // #endregion Auth endpoint
 
   // #region Users endpoint
