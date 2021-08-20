@@ -62,9 +62,12 @@ function Login() {
   };
 
   const handleOnSubmit = async (e) => {
-    if (!logginIn) {
-      e.preventDefault();
-      await dispatch(login(inputs));
+    e.preventDefault();
+
+    if (logginIn) return;
+
+    const loginSuccess = await dispatch(login(inputs));
+    if (loginSuccess) {
       history.push('/');
     }
   };
