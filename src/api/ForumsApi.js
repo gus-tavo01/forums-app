@@ -6,23 +6,16 @@ function successCallback(response) {
 }
 
 function errorCallback(error) {
-  // TODO:
-  // define flow on error
-  const payload = {
-    isSuccess: false,
-    errorMessage: error.message,
-    statusCode: 500,
+  let payload = {
+    errorMessage: error.request.statusText,
+    statusCode: error.request.status,
   };
 
   if (error.response) {
-    payload.errorMessage = error.response.data.status_message;
-    payload.statusCode = error.response.status;
-  } else if (error.request) {
-    payload.errorMessage = error.request.data.status_message;
-    payload.statusCode = error.request.status;
+    payload = error.response.data;
   }
 
-  throw payload;
+  return payload;
 }
 
 export default class ForumsApi {
@@ -44,10 +37,12 @@ export default class ForumsApi {
   };
 
   // #region Auth endpoint
-  authLogin = async (user) => this.instance.post('/auth', user);
+  authLogin = async (user) => this.instance.post('/auth/login', user);
 
   // authRegister
   // authPwdReset
+  // authForgotPwd
+
   // #endregion Auth endpoint
 
   // #region Forums endpoint
