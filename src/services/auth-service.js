@@ -1,14 +1,12 @@
-const fakeFetch = async (payload, ms = 2000) =>
-  new Promise((resolve) => setTimeout(resolve, ms)).then(() => payload);
+import ForumsApi from '../api/ForumsApi';
 
 export default class AuthService {
-  login = async () => {
-    const response = await fakeFetch({
-      fields: [],
-      message: 'Ok',
-      errorMessage: null,
-      payload: { token: 'my-fake-token', time: '120 minutes' },
-    });
+  constructor() {
+    this.forumsApi = new ForumsApi();
+  }
+
+  login = async (authData) => {
+    const response = await this.forumsApi.authLogin(authData);
     return response;
   };
 }
