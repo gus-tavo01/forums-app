@@ -45,6 +45,18 @@ export default class ForumsApi {
 
   // #endregion Auth endpoint
 
+  // #region Users endpoint
+  usersGet = async (params) => this.instance.get('/users', { params });
+
+  usersGetById = async (id) => this.instance.get(`/users/${id}`);
+
+  usersPost = async (userData) => this.instance.post('/users', userData);
+
+  userPatch = async (id, patch) => this.instance.patch(`/users/${id}`, patch);
+
+  usersDelete = async (id) => this.instance.delete(`/users/${id}`);
+  // #endregion Users endpoint
+
   // #region Forums endpoint
   forumsGet = async (params) => this.instance.get('/forums', { params });
 
@@ -64,5 +76,4 @@ export default class ForumsApi {
 
   // TODO
   // Comments endpoint
-  // Users endpoint
 }
