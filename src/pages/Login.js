@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../redux/actions/auth-actions';
-import { fetchProfile } from '../redux/actions/users-actions';
+// import { fetchProfile } from '../redux/actions/users-actions';
 import PageTitle from '../components/PageTitle';
 import LoadingButton from '../components/LoadingButton';
 
@@ -45,7 +45,7 @@ const useStyles = makeStyles(() => ({
 function Login() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { isLoggedIn, logginIn, token } = useSelector((state) => state.auth);
+  const { isLoggedIn, logginIn /** token */ } = useSelector((state) => state.auth);
   const history = useHistory();
   const [inputs, setInputs] = useState({ username: '', password: '' });
   const { username, password } = inputs;
@@ -69,7 +69,8 @@ function Login() {
     const loginSuccess = await dispatch(login(inputs));
     if (loginSuccess) {
       history.push('/');
-      dispatch(fetchProfile({ username, token }));
+      // TODO
+      // dispatch(fetchProfile({ username, token }));
     }
   };
 
