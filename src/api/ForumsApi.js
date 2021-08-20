@@ -46,15 +46,32 @@ export default class ForumsApi {
   // #endregion Auth endpoint
 
   // #region Users endpoint
+  usersGetByLoginName = async (loginName, token) => {
+    this.setToken(token);
+    return this.instance.get(`/users?userName=${loginName}`);
+  };
+
   usersGet = async (params) => this.instance.get('/users', { params });
 
-  usersGetById = async (id) => this.instance.get(`/users/${id}`);
+  usersGetById = async (id, token) => {
+    this.setToken(token);
+    return this.instance.get(`/users/${id}`);
+  };
 
-  usersPost = async (userData) => this.instance.post('/users', userData);
+  usersPost = async (userData, token) => {
+    this.setToken(token);
+    return this.instance.post('/users', userData);
+  };
 
-  userPatch = async (id, patch) => this.instance.patch(`/users/${id}`, patch);
+  userPatch = async (id, patch, token) => {
+    this.setToken(token);
+    return this.instance.patch(`/users/${id}`, patch);
+  };
 
-  usersDelete = async (id) => this.instance.delete(`/users/${id}`);
+  usersDelete = async (id, token) => {
+    this.setToken(token);
+    this.instance.delete(`/users/${id}`);
+  };
   // #endregion Users endpoint
 
   // #region Forums endpoint

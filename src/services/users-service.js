@@ -5,7 +5,9 @@ export default class UsersService {
     this.forumsApi = new ForumsApi();
   }
 
-  getById = async (id) => this.forumsApi.usersGetById(id);
+  getByLoginName = async (loginName, token) => this.forumsApi.usersGetByLoginName(loginName, token);
+
+  getById = async (id, token) => this.forumsApi.usersGetById(id, token);
 
   getByFilters = async (filters) => this.forumsApi.usersGet(filters);
 }
