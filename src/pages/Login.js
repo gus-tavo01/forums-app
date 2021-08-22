@@ -60,7 +60,7 @@ function Login() {
     if (loginSuccess) {
       history.push('/');
       // TODO
-      // dispatch(fetchProfile({ username, token }));
+      // dispatch(fetchProfile(username, token));
     }
   };
 
