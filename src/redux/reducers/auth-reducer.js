@@ -1,10 +1,21 @@
 import authConstants from '../action-types/auth-action-types';
 
-const { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT } = authConstants;
+const {
+  LOGIN_FAILURE,
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGOUT,
+  GETPROFILE_REQUEST,
+  GETPROFILE_SUCCESS,
+  GETPROFILE_FAILURE,
+} = authConstants;
 
-const token = sessionStorage.getItem('user');
+const token = sessionStorage.getItem('userToken');
+const user = sessionStorage.getItem('user');
+
 const clearedState = {};
-const initialState = token ? { isLoggedIn: true, token } : clearedState;
+const initialState =
+  token && user ? { isLoggedIn: true, token, user: JSON.parse(user) } : clearedState;
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -18,6 +29,15 @@ export default (state = initialState, action) => {
       return clearedState;
 
     case LOGIN_FAILURE:
+      return clearedState;
+
+    case GETPROFILE_REQUEST:
+      return { ...state, fetchingProfile: true };
+
+    case GETPROFILE_SUCCESS:
+      return { ...state, fetchingProfile: false, user: action.payload };
+
+    case GETPROFILE_FAILURE:
       return clearedState;
 
     default:
