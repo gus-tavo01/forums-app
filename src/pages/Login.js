@@ -30,16 +30,6 @@ const useStyles = makeStyles(() => ({
       margin: '10px 0px 10px 0px',
     },
   },
-  buttonWrapper: {
-    position: 'relative',
-  },
-  buttonProgress: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    marginTop: (circularSize / 2) * -1,
-    marginLeft: (circularSize / 2) * -1,
-  },
 }));
 
 function Login() {
