@@ -11,7 +11,6 @@ import { login } from '../redux/actions/auth-actions';
 import PageTitle from '../components/PageTitle';
 import LoadingButton from '../components/LoadingButton';
 
-const circularSize = 24;
 const useStyles = makeStyles(() => ({
   paper: {
     minWidth: 320,
