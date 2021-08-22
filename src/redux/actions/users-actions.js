@@ -3,7 +3,7 @@ import usersConstants from '../action-types/users-action-types';
 
 const usersService = new UsersService();
 
-export const fetchUser = (userId) => async (dispatch) => {
+export const getUser = (userId) => async (dispatch) => {
   // Step set loading state
   dispatch({ type: usersConstants.GETBYID_REQUEST });
 
@@ -23,7 +23,7 @@ export const fetchUser = (userId) => async (dispatch) => {
   return true;
 };
 
-export const fecthUsers = (filters) => async (dispatch) => {
+export const getUsers = (filters) => async (dispatch) => {
   // Step set loading state
   dispatch({ type: usersConstants.GET_REQUEST });
 
