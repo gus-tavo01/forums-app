@@ -31,11 +31,8 @@ export default (state = initialState, action) => {
     case LOGIN_FAILURE:
       return clearedState;
 
-    case GETPROFILE_REQUEST:
-      return { ...state, fetchingProfile: true };
-
     case GETPROFILE_SUCCESS:
-      return { ...state, fetchingProfile: false, user: action.payload };
+      return { ...state, user: action.payload };
 
     case GETPROFILE_FAILURE:
       return clearedState;
