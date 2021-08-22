@@ -36,7 +36,7 @@ export const login = (authData) => async (dispatch) => {
   }
 
   // Step store user profile
-  sessionStorage.setItem('user', getProfileResponse.payload);
+  sessionStorage.setItem('user', JSON.stringify(getProfileResponse.payload));
   dispatch({ type: authConstants.GETPROFILE_SUCCESS, payload: getProfileResponse.payload });
   return true;
 };

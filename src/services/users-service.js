@@ -5,7 +5,11 @@ export default class UsersService {
     this.forumsApi = new ForumsApi();
   }
 
-  getByLoginName = async (loginName, token) => this.forumsApi.usersGetByLoginName(loginName, token);
+  getByLoginName = async (loginName, token) => {
+    const response = await this.forumsApi.usersGetByLoginName(loginName, token);
+    const user = response.payload.docs.find((u) => u.username === loginName);
+    return { ...response, payload: user };
+  };
 
   getById = async (id, token) => this.forumsApi.usersGetById(id, token);
 

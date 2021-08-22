@@ -7,7 +7,6 @@ import Paper from '@material-ui/core/Paper';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../redux/actions/auth-actions';
-// import { fetchProfile } from '../redux/actions/users-actions';
 import PageTitle from '../components/PageTitle';
 import LoadingButton from '../components/LoadingButton';
 
@@ -58,8 +57,6 @@ function Login() {
     const loginSuccess = await dispatch(login(inputs));
     if (loginSuccess) {
       history.push('/');
-      // TODO
-      // dispatch(fetchProfile(username, token));
     }
   };
 
