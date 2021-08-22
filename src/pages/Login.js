@@ -33,7 +33,7 @@ const useStyles = makeStyles(() => ({
 function Login() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { isLoggedIn, logginIn /** token */ } = useSelector((state) => state.auth);
+  const { isLoggedIn, logginIn } = useSelector((state) => state.auth);
   const history = useHistory();
   const [inputs, setInputs] = useState({ username: '', password: '' });
   const { username, password } = inputs;
