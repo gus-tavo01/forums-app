@@ -37,10 +37,11 @@ Your app is ready to be deployed!
 
 ## Pending Core functionality
 
-### Public forums
+### Search forums
 
 - if no forums, disable pagination buttons
-- add floating action create button (if auth)
+- add floating action button (if auth)
+- add a message when no forums are found
 
 ### Forum details
 
@@ -78,7 +79,6 @@ Your app is ready to be deployed!
 
 - View forum details
   - participants (when auth)
-- Login
 - Register
 - Forgot password
 - Password reset
@@ -89,5 +89,6 @@ Your app is ready to be deployed!
 - Invite users to a forum
 - Switch language
 - Change app theme
-- Select an image for the forum
-- Select an avatar image
+- Load images
+  - Select a forum image
+  - Select an avatar image

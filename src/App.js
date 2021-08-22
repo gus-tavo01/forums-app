@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import NavBar from './components/NavBar';
 // pages
 import Login from './pages/Login';
@@ -12,9 +13,10 @@ import ForumDetails from './pages/ForumDetails';
 import TopicDetails from './pages/TopicDetails';
 
 function App() {
+  const auth = useSelector((state) => state.auth);
   return (
     <Router>
-      <NavBar />
+      <NavBar isLoggedIn={auth.isLoggedIn} />
       <Switch>
         <Route path="/" exact>
           <Forums />

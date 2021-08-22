@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../redux/actions/auth-actions';
 import PageTitle from '../components/PageTitle';
+import LoadingButton from '../components/LoadingButton';
 
 const useStyles = makeStyles(() => ({
   paper: {
@@ -29,9 +32,32 @@ const useStyles = makeStyles(() => ({
 
 function Login() {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const { isLoggedIn, logginIn } = useSelector((state) => state.auth);
+  const history = useHistory();
+  const [inputs, setInputs] = useState({ username: '', password: '' });
+  const { username, password } = inputs;
 
-  const handleOnSubmit = () => {
-    console.log('Trigger login');
+  useEffect(() => {
+    if (isLoggedIn) {
+      history.push('/');
+    }
+  }, []);
+
+  const handleOnChange = ({ target }) => {
+    const { value, name } = target;
+    setInputs((state) => ({ ...state, [name]: value }));
+  };
+
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+
+    if (logginIn) return;
+
+    const loginSuccess = await dispatch(login(inputs));
+    if (loginSuccess) {
+      history.push('/');
+    }
   };
 
   return (
@@ -39,9 +65,24 @@ function Login() {
       <Paper className={classes.paper}>
         <Grid item container direction="column">
           <PageTitle content="Login" />
-          <form className={classes.form} autoComplete="off">
-            <TextField label="Username" variant="outlined" fullWidth />
-            <TextField label="Password" type="password" variant="outlined" fullWidth />
+          <form className={classes.form} autoComplete="off" onSubmit={handleOnSubmit}>
+            <TextField
+              label="Username"
+              variant="outlined"
+              fullWidth
+              name="username"
+              value={username}
+              onChange={handleOnChange}
+            />
+            <TextField
+              label="Password"
+              type="password"
+              variant="outlined"
+              fullWidth
+              name="password"
+              value={password}
+              onChange={handleOnChange}
+            />
             <Button component={Link} to="/forgot-password">
               Forgot Password
             </Button>
@@ -49,9 +90,17 @@ function Login() {
               <Button component={Link} to="/signup" variant="outlined" color="secondary">
                 Sign Up
               </Button>
-              <Button variant="contained" color="primary" onClick={handleOnSubmit}>
-                Login
-              </Button>
+
+              <LoadingButton loading={!!logginIn}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  disabled={logginIn || !username.trim() || !password.trim()}
+                >
+                  Login
+                </Button>
+              </LoadingButton>
             </div>
           </form>
         </Grid>

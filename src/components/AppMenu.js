@@ -12,10 +12,14 @@ import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider';
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+import { logout } from '../redux/actions/auth-actions';
 
 function AppMenu(props) {
   const { isAuth } = props;
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
   const accountMenuOpen = Boolean(anchorEl);
 
@@ -28,11 +32,14 @@ function AppMenu(props) {
   };
 
   const handleOpenNotifications = () => {
-    // open notifications dialog
+    console.log('open notifications dialog');
+    closeMenu();
   };
 
-  const handleLogout = () => {
-    console.log('logout things');
+  const handleLogout = async () => {
+    closeMenu();
+    await dispatch(logout());
+    history.push('/');
   };
 
   return (

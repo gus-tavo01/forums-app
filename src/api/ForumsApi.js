@@ -1,32 +1,25 @@
 import axios from 'axios';
-import { ForumsApiUrl } from '../constants/Api';
+import { ForumsApiUrl, Timeout } from '../constants/Api';
 
 function successCallback(response) {
   return response.data;
 }
 
 function errorCallback(error) {
-  // TODO:
-  // define flow on error
-  const payload = {
-    isSuccess: false,
-    errorMessage: error.message,
-    statusCode: 500,
+  let payload = {
+    errorMessage: error.request.statusText,
+    statusCode: error.request.status,
   };
 
   if (error.response) {
-    payload.errorMessage = error.response.data.status_message;
-    payload.statusCode = error.response.status;
-  } else if (error.request) {
-    payload.errorMessage = error.request.data.status_message;
-    payload.statusCode = error.request.status;
+    payload = error.response.data;
   }
 
-  throw payload;
+  return payload;
 }
 
 export default class ForumsApi {
-  constructor(timeout = 5000) {
+  constructor(timeout = Timeout) {
     this.timeout = timeout;
     const instance = axios.create({
       baseURL: `${ForumsApiUrl}/api/v0`,
@@ -42,6 +35,44 @@ export default class ForumsApi {
   setToken = (token) => {
     this.instance.defaults.headers.common.Authorization = `Bearer ${token}`;
   };
+
+  // #region Auth endpoint
+  authLogin = async (authData) => this.instance.post('/auth/login', authData);
+
+  authRegister = async (userData) => this.instance.post('auth/register', userData);
+
+  // authPwdReset
+  // authForgotPwd
+  // #endregion Auth endpoint
+
+  // #region Users endpoint
+  usersGetByLoginName = async (loginName, token) => {
+    this.setToken(token);
+    return this.instance.get(`/users?userName=${loginName}`);
+  };
+
+  usersGet = async (params) => this.instance.get('/users', { params });
+
+  usersGetById = async (id, token) => {
+    this.setToken(token);
+    return this.instance.get(`/users/${id}`);
+  };
+
+  usersPost = async (userData, token) => {
+    this.setToken(token);
+    return this.instance.post('/users', userData);
+  };
+
+  userPatch = async (id, patch, token) => {
+    this.setToken(token);
+    return this.instance.patch(`/users/${id}`, patch);
+  };
+
+  usersDelete = async (id, token) => {
+    this.setToken(token);
+    this.instance.delete(`/users/${id}`);
+  };
+  // #endregion Users endpoint
 
   // #region Forums endpoint
   forumsGet = async (params) => this.instance.get('/forums', { params });
@@ -62,11 +93,4 @@ export default class ForumsApi {
 
   // TODO
   // Comments endpoint
-  // Users endpoint
-
-  // #region Auth endpoint
-  // authLogin
-  // authRegister
-  // authPwdReset
-  // #endregion Auth endpoint
 }
