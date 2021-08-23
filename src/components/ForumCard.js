@@ -36,7 +36,7 @@ function ForumCard(props) {
     <Paper className={classes.card} variant="outlined">
       <Grid container direction="column">
         <Grid container item>
-          <Grid container item justify="flex-start" alignItems="flex-start" wrap="nowrap">
+          <Grid container item justifyContent="flex-start" alignItems="flex-start" wrap="nowrap">
             <Avatar src={image} className={classes.image}>
               <ForumOutlinedIcon />
             </Avatar>
@@ -54,7 +54,7 @@ function ForumCard(props) {
           </Grid>
         </Grid>
         <Divider />
-        <Grid container item justify="space-between">
+        <Grid container item justifyContent="space-between">
           <Typography variant="subtitle2">Author: {author}</Typography>
           <Typography>Participants: {participants}</Typography>
         </Grid>

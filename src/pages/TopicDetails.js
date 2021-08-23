@@ -23,7 +23,7 @@ function TopicDetails() {
   const comments = [];
   return (
     <Grid container direction="column" spacing={2} className={classes.root}>
-      <Grid container item justify="center">
+      <Grid container item justifyContent="center">
         <PageTitle content={currentTopic.name} />
       </Grid>
       <Grid item>
@@ -34,7 +34,7 @@ function TopicDetails() {
           Show comments
         </Button>
       </Grid>
-      <Grid container item justify="center">
+      <Grid container item justifyContent="center">
         <CommentsList items={comments} />
       </Grid>
     </Grid>

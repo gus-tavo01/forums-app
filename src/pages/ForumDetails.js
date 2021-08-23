@@ -42,8 +42,8 @@ function ForumDetails() {
   }, []);
 
   return (
-    <Grid container justify="center" direction="column" className={classes.root} spacing={3}>
-      <Grid container item justify="center" alignItems="center">
+    <Grid container justifyContent="center" direction="column" className={classes.root} spacing={3}>
+      <Grid container item justifyContent="center" alignItems="center">
         <Avatar src={forum.imageSrc} className={classes.image} variant="rounded">
           <ForumOutlinedIcon />
         </Avatar>
@@ -51,7 +51,7 @@ function ForumDetails() {
           {forum.name}
         </Typography>
       </Grid>
-      <Grid container item justify="space-between">
+      <Grid container item justifyContent="space-between">
         <Typography>By: {forum.author}</Typography>
         <Typography>
           Created <FromDate>{forum.createDate}</FromDate>
@@ -62,12 +62,12 @@ function ForumDetails() {
         <Typography>{forum.description}</Typography>
       </Grid>
       <Divider />
-      <Grid item container justify="center">
+      <Grid item container justifyContent="center">
         <Typography component="h3" variant="h5">
           Topics 📣
         </Typography>
       </Grid>
-      <Grid container item justify="center" spacing={2}>
+      <Grid container item justifyContent="center" spacing={2}>
         {pageLoaders.topics ? <CircularProgress /> : <TopicsList items={topics} />}
       </Grid>
     </Grid>

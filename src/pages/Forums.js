@@ -95,10 +95,10 @@ function Forums() {
   };
 
   return (
-    <Grid container justify="center" className={classes.root}>
+    <Grid container justifyContent="center" className={classes.root}>
       <PageTitle content="Public forums" />
       <Grid container item direction="column">
-        <Grid container item justify="center" alignItems="center">
+        <Grid container item justifyContent="center" alignItems="center">
           <Tooltip title="Filters">
             <IconButton onClick={handleOpenFilters}>
               <FilterListOutlinedIcon />
@@ -134,7 +134,7 @@ function Forums() {
             disabled={!forums.docs.length}
           />
         </Container>
-        <Grid container item direction="column" alignItems="center" justify="center">
+        <Grid container item direction="column" alignItems="center" justifyContent="center">
           {pageLoaders.list ? <CircularProgress size={80} /> : <ForumsList forums={forums.docs} />}
         </Grid>
       </Grid>

@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
 function ForgotPassword() {
   const classes = useStyles();
   return (
-    <Grid container justify="center">
+    <Grid container justifyContent="center">
       <Paper className={classes.paper}>
         <Grid container item direction="column">
           <PageTitle>Forgot Password</PageTitle>
