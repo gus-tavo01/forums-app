@@ -48,7 +48,7 @@ function ForumDetails() {
           <ForumOutlinedIcon />
         </Avatar>
         <Typography component="h2" variant="h4">
-          {forum.name}
+          {forum.topic}
         </Typography>
       </Grid>
       <Grid container item justifyContent="space-between">

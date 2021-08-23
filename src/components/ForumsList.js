@@ -10,7 +10,7 @@ function ForumsList(props) {
         <ForumCard
           id={forum.id}
           key={forum.id}
-          name={forum.name}
+          topic={forum.topic}
           participants={forum.participants}
           lastActivity={forum.lastActivity}
           image={forum.imageSrc}
@@ -27,7 +27,7 @@ export default ForumsList;
 ForumsList.propTypes = {
   forums: PropTypes.arrayOf(
     PropTypes.shape({
-      name: PropTypes.string,
+      topic: PropTypes.string,
       author: PropTypes.string,
       description: PropTypes.string,
       image: PropTypes.string,
