@@ -20,17 +20,15 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Tooltip from '@material-ui/core/Tooltip';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Divider from '@material-ui/core/Divider';
 // actions
 import { loadForums } from '../redux/actions/forums-actions';
 import PageTitle from '../components/PageTitle';
 import ForumsList from '../components/ForumsList';
-// constants
-import ForumSizes from '../constants/ForumSizes';
 
 const useStyles = makeStyles((theme) => ({
-  input: {
-    margin: '10px 0px',
-  },
   paginationContainer: {
     marginTop: '10px',
     marginBottom: '10px',
@@ -48,32 +46,38 @@ const useStyles = makeStyles((theme) => ({
       margin: '10px 0px',
     },
   },
+  formControl: {
+    minWidth: 120,
+    margin: '1px',
+  },
   actions: {
     display: 'flex',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
   },
 }));
 
-const defaultFilters = { size: '', name: '', author: '' };
+const defaultFilters = { topic: '', author: '', active: '', public: true };
 
 function Forums() {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [filters, setFilters] = useState(defaultFilters);
   const [page, setPage] = useState(1);
 
-  const classes = useStyles();
-  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((store) => store.auth);
   const forums = useSelector((store) => store.forums);
   const pageLoaders = useSelector((store) => store.loaders.forums);
 
-  const onSubmit = () => {
-    // Step dispatch get forums
+  const handleSubmit = () => {
+    // get forums
     dispatch(loadForums({ ...filters, page }));
   };
 
   const onPageChange = (ev, value) => {
     setPage(value);
-    onSubmit();
+    handleSubmit();
   };
 
   const handleClose = () => {
@@ -88,15 +92,18 @@ function Forums() {
     setFiltersOpen(true);
   };
 
-  const handleInput = (ev) => {
-    const { target } = ev;
+  const handleInput = ({ target }) => {
     const newFilters = { ...filters, [target.name]: target.value };
     setFilters(newFilters);
   };
 
+  const handleOnPrivateCheck = ({ target }) => {
+    setFilters({ ...filters, public: !target.checked });
+  };
+
   return (
     <Grid container justifyContent="center" className={classes.root}>
-      <PageTitle content="Public forums" />
+      <PageTitle content="Forums search" />
       <Grid container item direction="column">
         <Grid container item justifyContent="center" alignItems="center">
           <Tooltip title="Filters">
@@ -105,16 +112,16 @@ function Forums() {
             </IconButton>
           </Tooltip>
           <TextField
-            label="Forum name"
+            label="Forum topic"
             type="search"
             variant="outlined"
             size="small"
             onChange={handleInput}
-            value={filters.name}
-            name="name"
+            value={filters.topic}
+            name="topic"
           />
           <Tooltip title="Search">
-            <IconButton onClick={onSubmit}>
+            <IconButton onClick={handleSubmit}>
               <SearchOutlinedIcon />
             </IconButton>
           </Tooltip>
@@ -135,19 +142,20 @@ function Forums() {
           />
         </Container>
         <Grid container item direction="column" alignItems="center" justifyContent="center">
-          {pageLoaders.list ? <CircularProgress size={80} /> : <ForumsList forums={forums.docs} />}
+          {pageLoaders.list && <CircularProgress size={80} />}
+          <ForumsList forums={forums.docs} />
         </Grid>
       </Grid>
       <Dialog open={filtersOpen} onClose={handleClose}>
         <DialogTitle id="form-dialog-title">Forum Search Filters</DialogTitle>
         <DialogContent className={classes.form}>
           <TextField
-            label="Forum name"
+            label="Forum topic"
             variant="outlined"
             fullWidth
             onChange={handleInput}
-            value={filters.name}
-            name="name"
+            value={filters.topic}
+            name="topic"
           />
           <TextField
             label="Author"
@@ -157,33 +165,69 @@ function Forums() {
             value={filters.author}
             name="author"
           />
-          <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel id="select-size">Forum Size</InputLabel>
+          <FormControl variant="outlined">
+            <InputLabel id="select-active">Forum status</InputLabel>
             <Select
-              labelId="select-size"
-              value={filters.size}
+              labelId="select-active"
+              value={filters.active}
               onChange={handleInput}
-              label="Forum Size"
-              name="size"
+              label="Forum status"
+              name="active"
             >
-              <MenuItem value={ForumSizes.open.label}>
-                I dont care ({ForumSizes.open.from} - {ForumSizes.open.to})
-              </MenuItem>
-              <MenuItem value={ForumSizes.small.label}>
-                {ForumSizes.small.label} ({ForumSizes.small.from} - {ForumSizes.small.to})
-              </MenuItem>
-              <MenuItem value={ForumSizes.medium.label}>
-                {ForumSizes.medium.label} ({ForumSizes.medium.from} - {ForumSizes.medium.to})
-              </MenuItem>
-              <MenuItem value={ForumSizes.large.label}>
-                {ForumSizes.large.label} ({ForumSizes.large.from} - {ForumSizes.large.to})
-              </MenuItem>
-              <MenuItem value={ForumSizes.xLarge.label}>
-                {ForumSizes.xLarge.label} ({ForumSizes.xLarge.from} - {ForumSizes.xLarge.to})
-              </MenuItem>
+              <MenuItem value>Active only</MenuItem>
+              <MenuItem value={false}>Inactive only</MenuItem>
             </Select>
           </FormControl>
+
+          <div>
+            <FormControl variant="outlined" className={classes.formControl}>
+              <InputLabel id="select-sortBy">Sort by</InputLabel>
+              <Select
+                labelId="select-sortBy"
+                value={filters.sortBy}
+                onChange={handleInput}
+                label="Sort by"
+                name="sortBy"
+              >
+                <MenuItem value="topic">Topic</MenuItem>
+                <MenuItem value="author">Author</MenuItem>
+                <MenuItem value="createDate">Creation date</MenuItem>
+                <MenuItem value="lastActivity">Activity date</MenuItem>
+                <MenuItem value="isActive">Status</MenuItem>
+                <MenuItem value="isPrivate">Scope</MenuItem>
+                <MenuItem value="participants">Participants</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl variant="outlined" className={classes.formControl}>
+              <InputLabel id="select-sortOrder">Sort order</InputLabel>
+              <Select
+                labelId="select-sortOrder"
+                value={filters.sortOrder}
+                onChange={handleInput}
+                label="Sort order"
+                name="sortOrder"
+              >
+                <MenuItem value="asc">Ascendent</MenuItem>
+                <MenuItem value="desc">Descendent</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
+
+          {isLoggedIn && (
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={filters.public === false}
+                  onChange={handleOnPrivateCheck}
+                  name="public"
+                  color="primary"
+                />
+              }
+              label="Include private forums"
+            />
+          )}
         </DialogContent>
+        <Divider />
         <DialogActions className={classes.actions}>
           <Button onClick={handleClear} variant="outlined">
             Clear all
