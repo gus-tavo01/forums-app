@@ -35,60 +35,36 @@ Your app is ready to be deployed!
 
 - npm run build
 
-## Pending Core functionality
+## Core functionality
+
+### Login
+
+Login into the application
 
 ### Search forums
 
-- if no forums, disable pagination buttons
-- add floating action button (if auth)
-- add a message when no forums are found
+- add filters etc..
 
 ### Forum details
 
-### Topic page
+## TODOs
 
-- implement topics list component
-- implement comments service
-- add spinner when load comments
+- Search forums
 
-## Known issuess
+  - fix forums list on scrolling
+  - add a message when no forums are found
+  - create component ForumFiltersDialog
+  - create component AddForumDialog
 
-- none 😮
-
-## To be defined
-
-- UI testing strategy
-- Error handling
-  - on api calls
-  - on forms fill
-- About Page
-  - add my photo
-  - short self description
-  - my cats photo
-- Redux
-  - errors reducer
-  - auth reducer
-  - modals reducer?
-- App languages
-  - switch language
-    - english
-    - spanish
-  - read language from user preferences
+- Forum details
+  - remove topics list
 
 ## Incoming features
 
-- View forum details
-  - participants (when auth)
-- Register
-- Forgot password
-- Password reset
 - View my profile
-- Create a forum
-- Create a topic
-- Post a comment
-- Invite users to a forum
-- Switch language
-- Change app theme
 - Load images
   - Select a forum image
   - Select an avatar image
+- set a default image when null
+  - forum
+  - avatar
