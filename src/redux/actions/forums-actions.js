@@ -19,7 +19,7 @@ export const getForums = (filters) => async (dispatch) => {
   }
 
   // Step handle response
-  if (!getForumsResponse.errorMessage) {
+  if (getForumsResponse.errorMessage) {
     dispatch({ type: forumsConstants.GET_FAILURE });
     // dispatch alert error
     return false;
@@ -31,8 +31,11 @@ export const getForums = (filters) => async (dispatch) => {
 };
 
 export const addForum = (payload) => async (dispatch) => {
-  // TODO
-  dispatch({ type: 'ADD_FORUM', payload });
+  // Step display loader
+  dispatch({ type: forumsConstants.ADD_REQUEST, payload });
+  // Step invoke service.add
+  // Step handle errors
+  // Step add added forum on state
 };
 
 // removeForum(payload)
