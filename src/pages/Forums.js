@@ -23,6 +23,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Divider from '@material-ui/core/Divider';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 import { getForums } from '../redux/actions/forums-actions';
 import PageTitle from '../components/PageTitle';
 import ForumsList from '../components/ForumsList';
@@ -106,6 +108,10 @@ function Forums() {
     setFilters({ ...filters, public: !target.checked });
   };
 
+  const handleAddForum = () => {
+    alert('Open modal to add a new forum');
+  };
+
   return (
     <Grid container justifyContent="center" className={classes.root}>
       <PageTitle content="Forums search" />
@@ -150,6 +156,13 @@ function Forums() {
           {forums.fetching && <CircularProgress size={80} />}
           <ForumsList forums={forums.docs || []} />
         </Grid>
+        {isLoggedIn && (
+          <Grid container item justifyContent="flex-end">
+            <Fab color="primary" onClick={handleAddForum}>
+              <AddIcon />
+            </Fab>
+          </Grid>
+        )}
       </Grid>
       <Dialog open={filtersOpen} onClose={handleClose}>
         <DialogTitle id="form-dialog-title">Forum Search Filters</DialogTitle>
@@ -177,7 +190,7 @@ function Forums() {
               value={filters.isActive}
               onChange={handleInput}
               label="Forum status"
-              name="active"
+              name="isActive"
             >
               <MenuItem value>Active only</MenuItem>
               <MenuItem value={false}>Inactive only</MenuItem>
