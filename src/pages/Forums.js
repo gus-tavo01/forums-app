@@ -55,7 +55,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const defaultFilters = { topic: '', author: '', active: '', public: true };
+const defaultFilters = {
+  topic: '',
+  author: '',
+  isActive: '',
+  public: true,
+  sortBy: '',
+  sortOrder: '',
+};
 
 function Forums() {
   const classes = useStyles();
@@ -167,7 +174,7 @@ function Forums() {
             <InputLabel id="select-active">Forum status</InputLabel>
             <Select
               labelId="select-active"
-              value={filters.active}
+              value={filters.isActive}
               onChange={handleInput}
               label="Forum status"
               name="active"
