@@ -23,8 +23,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Divider from '@material-ui/core/Divider';
-// actions
-import { loadForums } from '../redux/actions/forums-actions';
+import { getForums } from '../redux/actions/forums-actions';
 import PageTitle from '../components/PageTitle';
 import ForumsList from '../components/ForumsList';
 
@@ -68,11 +67,10 @@ function Forums() {
 
   const { isLoggedIn } = useSelector((store) => store.auth);
   const forums = useSelector((store) => store.forums);
-  const pageLoaders = useSelector((store) => store.loaders.forums);
 
   const handleSubmit = () => {
     // get forums
-    dispatch(loadForums({ ...filters, page }));
+    dispatch(getForums({ ...filters, page }));
   };
 
   const onPageChange = (ev, value) => {
@@ -138,12 +136,12 @@ function Forums() {
             color="secondary"
             showFirstButton
             showLastButton
-            disabled={!forums.docs.length}
+            disabled={!forums.docs?.length}
           />
         </Container>
         <Grid container item direction="column" alignItems="center" justifyContent="center">
-          {pageLoaders.list && <CircularProgress size={80} />}
-          <ForumsList forums={forums.docs} />
+          {forums.fetching && <CircularProgress size={80} />}
+          <ForumsList forums={forums.docs || []} />
         </Grid>
       </Grid>
       <Dialog open={filtersOpen} onClose={handleClose}>
@@ -233,7 +231,7 @@ function Forums() {
             Clear all
           </Button>
           <Button onClick={handleClose} color="primary" variant="contained">
-            Okie
+            Add filters
           </Button>
         </DialogActions>
       </Dialog>
