@@ -51,10 +51,9 @@ Login into the application
 
 - Search forums
 
-  - fix forums list on scrolling
-  - add a message when no forums are found
   - create component ForumFiltersDialog
   - create component AddForumDialog
+  - use memo on get requests
 
 - Forum details
   - remove topics list
