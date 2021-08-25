@@ -213,7 +213,7 @@ function Forums() {
                 <MenuItem value="createDate">Creation date</MenuItem>
                 <MenuItem value="lastActivity">Activity date</MenuItem>
                 <MenuItem value="isActive">Status</MenuItem>
-                <MenuItem value="isPrivate">Scope</MenuItem>
+                {isLoggedIn && <MenuItem value="isPrivate">Privacity</MenuItem>}
                 <MenuItem value="participants">Participants</MenuItem>
               </Select>
             </FormControl>
