@@ -154,7 +154,7 @@ function Forums() {
         </Container>
         <Grid container item direction="column" alignItems="center" justifyContent="center">
           {forums.fetching && <CircularProgress size={80} />}
-          {!forums.fetching && !forums.docs && <p>No forums found</p>}
+          {!forums.fetching && !forums.docs?.length && <p>No forums found</p>}
           <ForumsList forums={forums.docs || []} />
         </Grid>
         {isLoggedIn && (
