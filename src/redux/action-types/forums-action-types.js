@@ -1,5 +1,10 @@
-export const ADD_FORUM = 'ADD_FORUM';
-export const LOAD_FORUMS = 'LOAD_FORUMS';
-export const MODIFY_FORUM = 'MODIFY_FORUM';
-export const REMOVE_FORUM = 'REMOVE_FORUM';
-// get single forum??
+const forumsConstants = {
+  GET_REQUEST: 'FORUMS_GET_REQUEST',
+  GET_SUCCESS: 'FORUMS_GET_SUCCESS',
+  GET_FAILURE: 'FORUMS_GET_FAILURE',
+
+  ADD_REQUEST: 'FORUMS_ADD_REQUEST',
+  ADD_SUCCESS: 'FORUMS_ADD_SUCCESS',
+  ADD_FAILURE: 'FORUMS_ADD_FAILURE',
+};
+export default forumsConstants;

@@ -1,14 +1,16 @@
-import { ADD_FORUM, LOAD_FORUMS } from '../action-types/forums-action-types';
+import forumsConstants from '../action-types/forums-action-types';
 
-const initialState = { docs: [] };
+const { GET_SUCCESS, GET_FAILURE, GET_REQUEST } = forumsConstants;
+const initialState = {};
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case LOAD_FORUMS:
+    case GET_SUCCESS:
       return action.payload;
-    case ADD_FORUM:
-      return [...state, action.payload];
-    // rest of actions...
+    case GET_FAILURE:
+      return initialState;
+    case GET_REQUEST:
+      return { ...state, fetching: true };
     default:
       return state;
   }

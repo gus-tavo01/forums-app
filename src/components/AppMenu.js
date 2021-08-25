@@ -4,7 +4,6 @@ import IconButton from '@material-ui/core/IconButton';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import MenuOutlinedIcon from '@material-ui/icons/MenuOutlined';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
-import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
 import NotificationsOutlinedIcon from '@material-ui/icons/NotificationsOutlined';
 import HelpOutlineOutlinedIcon from '@material-ui/icons/HelpOutlineOutlined';
 import PeopleOutlineOutlinedIcon from '@material-ui/icons/PeopleOutlineOutlined';
@@ -69,14 +68,6 @@ function AppMenu(props) {
               <AccountCircleOutlinedIcon />
             </ListItemIcon>
             Account
-          </MenuItem>
-        )}
-        {isAuth && (
-          <MenuItem onClick={closeMenu} component={Link} to="my-forums">
-            <ListItemIcon>
-              <ForumOutlinedIcon />
-            </ListItemIcon>
-            My forums
           </MenuItem>
         )}
         {isAuth && (

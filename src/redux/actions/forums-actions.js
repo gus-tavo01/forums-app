@@ -1,29 +1,42 @@
 import ForumsService from '../../services/forums-service';
-import { LOAD_FORUMS } from '../action-types/forums-action-types';
-import { SET_FORUMS_IS_LOADING } from '../action-types/loaders-action-types';
+import forumsConstants from '../action-types/forums-action-types';
 
-export const loadForums = (payload) => async (dispatch) => {
-  // Step display loading spinner on forums list section
-  dispatch({ type: SET_FORUMS_IS_LOADING, payload: { list: true } });
+const forumsService = new ForumsService();
 
-  // Step fetch forums from service
-  const forumsService = new ForumsService();
-  const response = await forumsService.get(payload);
+export const getForums = (filters) => async (dispatch) => {
+  // Step display loading spinner on forums page
+  dispatch({ type: forumsConstants.GET_REQUEST });
 
-  // Step if errors dispatch error action
-  // if (!response.fields)
-  // dispatch({error action});
+  // Step verify private or public forums
+  let getForumsResponse = {};
 
-  // Step load forums on UI
-  dispatch({ type: LOAD_FORUMS, payload: response.payload });
+  if (filters.public) {
+    // Step fetch forums
+    getForumsResponse = await forumsService.get(filters);
+  } else {
+    // TODO
+    // getForumsResponse = await usersService.getForums(filters);
+    getForumsResponse = await forumsService.get(filters);
+  }
 
-  // Step hide loading spinner
-  dispatch({ type: SET_FORUMS_IS_LOADING, payload: { list: false } });
+  // Step handle response
+  if (getForumsResponse.errorMessage) {
+    dispatch({ type: forumsConstants.GET_FAILURE });
+    // dispatch alert error
+    return false;
+  }
+
+  // Step render forums on UI
+  dispatch({ type: forumsConstants.GET_SUCCESS, payload: getForumsResponse.payload });
+  return true;
 };
 
 export const addForum = (payload) => async (dispatch) => {
-  // TODO
-  dispatch({ type: 'ADD_FORUM', payload });
+  // Step display loader
+  dispatch({ type: forumsConstants.ADD_REQUEST, payload });
+  // Step invoke service.add
+  // Step handle errors
+  // Step add added forum on state
 };
 
 // removeForum(payload)

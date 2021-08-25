@@ -55,11 +55,11 @@ const secrets = [
 function SignUp() {
   const classes = useStyles();
   return (
-    <Grid container justify="center">
+    <Grid container justifyContent="center">
       <Paper className={classes.paper}>
         <Grid container item direction="column">
           <PageTitle>Sign Up</PageTitle>
-          <Grid item container alignItems="flex-end" justify="center">
+          <Grid item container alignItems="flex-end" justifyContent="center">
             <Avatar src={null} className={classes.avatar} />
             <IconButton size="small">
               <AddPhotoAlternateOutlinedIcon />

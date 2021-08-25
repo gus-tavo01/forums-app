@@ -30,22 +30,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ForumCard(props) {
-  const { image, name, id, lastActivity, description, author, participants } = props;
+  const { image, topic, id, lastActivity, description, author, participants } = props;
   const classes = useStyles();
   return (
     <Paper className={classes.card} variant="outlined">
       <Grid container direction="column">
         <Grid container item>
-          <Grid container item justify="flex-start" alignItems="flex-start" wrap="nowrap">
+          <Grid container item justifyContent="flex-start" alignItems="flex-start" wrap="nowrap">
             <Avatar src={image} className={classes.image}>
               <ForumOutlinedIcon />
             </Avatar>
-            <Grid container item direction="column">
+            <Grid container item justifyContent="space-between">
               <Typography component={Link} to={`/forum/${id}`} variant="subtitle1">
-                {name}
+                {topic}
               </Typography>
               <Typography variant="caption">
-                Last post: <FromDate>{lastActivity}</FromDate>
+                Last activity: <FromDate>{lastActivity}</FromDate>
               </Typography>
             </Grid>
           </Grid>
@@ -54,7 +54,7 @@ function ForumCard(props) {
           </Grid>
         </Grid>
         <Divider />
-        <Grid container item justify="space-between">
+        <Grid container item justifyContent="space-between">
           <Typography variant="subtitle2">Author: {author}</Typography>
           <Typography>Participants: {participants}</Typography>
         </Grid>
@@ -65,7 +65,7 @@ function ForumCard(props) {
 
 ForumCard.propTypes = {
   id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
+  topic: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   lastActivity: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,

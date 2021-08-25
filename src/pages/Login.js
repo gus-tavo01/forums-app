@@ -61,7 +61,7 @@ function Login() {
   };
 
   return (
-    <Grid container justify="center">
+    <Grid container justifyContent="center">
       <Paper className={classes.paper}>
         <Grid item container direction="column">
           <PageTitle content="Login" />
