@@ -1,18 +1,15 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 // mui components
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
 // components
 import FromDate from '../components/FromDate';
-import TopicsList from '../components/TopicsList';
-import { loadTopics } from '../redux/actions/topics-actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,16 +26,16 @@ const useStyles = makeStyles((theme) => ({
 function ForumDetails() {
   const classes = useStyles();
   const { id } = useParams();
-  const dispatch = useDispatch();
-  const pageLoaders = useSelector((store) => store.loaders.forum);
+  // const dispatch = useDispatch();
   const forum = useSelector((store) => store.forums.docs.find((f) => f.id === id));
-  const topics = useSelector((store) => store.topics.docs);
+  // const comments = useSelector((store) => store.comments);
 
   useEffect(() => {
     // TODO
+    // get comments
     // handle filters
-    const filters = { forumId: id };
-    dispatch(loadTopics(filters));
+    // const filters = { forumId: id };
+    // dispatch(loadTopics(filters));
   }, []);
 
   return (
@@ -68,7 +65,7 @@ function ForumDetails() {
         </Typography>
       </Grid>
       <Grid container item justifyContent="center" spacing={2}>
-        {pageLoaders.topics ? <CircularProgress /> : <TopicsList items={topics} />}
+        comments thread
       </Grid>
     </Grid>
   );
