@@ -193,8 +193,8 @@ function Forums() {
               label="Forum status"
               name="isActive"
             >
-              <MenuItem value>Active only</MenuItem>
-              <MenuItem value={false}>Inactive only</MenuItem>
+              <MenuItem value="true">Active only</MenuItem>
+              <MenuItem value="false">Inactive only</MenuItem>
             </Select>
           </FormControl>
 
