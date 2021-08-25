@@ -16,6 +16,7 @@ export const getForums = (filters) => async (dispatch) => {
   } else {
     // TODO
     // getForumsResponse = await usersService.getForums(filters);
+    getForumsResponse = await forumsService.get(filters);
   }
 
   // Step handle response
