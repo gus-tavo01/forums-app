@@ -12,7 +12,6 @@ import Avatar from '@material-ui/core/Avatar';
 // #endregion mui components
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-// eslint-disable-next-line no-unused-vars
 import { register } from '../redux/actions/auth-actions';
 import PageTitle from '../components/PageTitle';
 import LoadingButton from '../components/LoadingButton';
@@ -42,7 +41,6 @@ const useStyles = makeStyles((theme) => ({
 
 function SignUp() {
   const classes = useStyles();
-  // eslint-disable-next-line no-unused-vars
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -74,6 +72,12 @@ function SignUp() {
       dateOfBirth: inputs.dateOfBirth,
       password: inputs.password,
     };
+
+    if (inputs.password !== inputs.rPassword) {
+      console.log('handle input error for non matching passwords');
+      return;
+    }
+
     const registered = await dispatch(register(userRequest));
 
     if (registered) {
