@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 // #region MUI components
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -10,8 +10,12 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 // #endregion mui components
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+// eslint-disable-next-line no-unused-vars
+import { register } from '../redux/actions/auth-actions';
 import PageTitle from '../components/PageTitle';
+import LoadingButton from '../components/LoadingButton';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -26,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
       margin: '10px 0px',
     },
   },
+  submitBtn: {
+    width: '100%',
+  },
   avatar: {
     width: theme.spacing(7),
     height: theme.spacing(7),
@@ -35,11 +42,43 @@ const useStyles = makeStyles((theme) => ({
 
 function SignUp() {
   const classes = useStyles();
+  // eslint-disable-next-line no-unused-vars
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-  // useEffect(() => { if auth, redirect to '/' }, []);
+  const { registering, isLoggedIn } = useSelector((store) => store.auth);
+  const [inputs, setInputs] = useState({
+    username: '',
+    email: '',
+    password: '',
+    rPassword: '',
+    dateOfBirth: '',
+  });
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    if (isLoggedIn) {
+      history.push('/');
+    }
+  }, []);
+
+  const handleOnChange = ({ target }) => {
+    const { value, name } = target;
+    setInputs((state) => ({ ...state, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const userRequest = {
+      username: inputs.username,
+      email: inputs.email,
+      dateOfBirth: inputs.dateOfBirth,
+      password: inputs.password,
+    };
+    const registered = await dispatch(register(userRequest));
+
+    if (registered) {
+      history.push('/login');
+    }
   };
 
   return (
@@ -54,8 +93,22 @@ function SignUp() {
             </IconButton>
           </Grid>
           <form autoComplete="off" className={classes.form} onSubmit={handleSubmit}>
-            <TextField label="Username" variant="outlined" size="small" />
-            <TextField label="Email" variant="outlined" size="small" />
+            <TextField
+              label="Username"
+              variant="outlined"
+              size="small"
+              onChange={handleOnChange}
+              name="username"
+              value={inputs.username}
+            />
+            <TextField
+              label="Email"
+              variant="outlined"
+              size="small"
+              onChange={handleOnChange}
+              name="email"
+              value={inputs.email}
+            />
             <TextField
               label="Birthday"
               variant="outlined"
@@ -64,12 +117,46 @@ function SignUp() {
               InputLabelProps={{
                 shrink: true,
               }}
+              onChange={handleOnChange}
+              name="dateOfBirth"
+              value={inputs.dateOfBirth}
             />
-            <TextField label="Password" variant="outlined" type="password" size="small" />
-            <TextField label="Repeat password" variant="outlined" type="password" size="small" />
-            <Button variant="contained" color="primary" type="submit">
-              Submit
-            </Button>
+            <TextField
+              label="Password"
+              variant="outlined"
+              type="password"
+              size="small"
+              onChange={handleOnChange}
+              name="password"
+              value={inputs.password}
+            />
+            <TextField
+              label="Repeat password"
+              variant="outlined"
+              type="password"
+              size="small"
+              onChange={handleOnChange}
+              name="rPassword"
+              value={inputs.rPassword}
+            />
+            <LoadingButton loading={!!registering}>
+              <Button
+                className={classes.submitBtn}
+                variant="contained"
+                color="primary"
+                type="submit"
+                disabled={
+                  registering ||
+                  !inputs.username.trim() ||
+                  !inputs.email.trim() ||
+                  !inputs.dateOfBirth.trim() ||
+                  !inputs.password.trim() ||
+                  !inputs.rPassword.trim()
+                }
+              >
+                Submit
+              </Button>
+            </LoadingButton>
           </form>
           <Typography>
             Already have an account?{' '}
