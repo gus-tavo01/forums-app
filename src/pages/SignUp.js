@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
-import IconButton from '@material-ui/core/IconButton';
 import AddPhotoAlternateOutlinedIcon from '@material-ui/icons/AddPhotoAlternateOutlined';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -36,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(7),
     height: theme.spacing(7),
     marginRight: theme.spacing(1),
+  },
+  inputFile: {
+    display: 'none',
   },
 }));
 
@@ -94,16 +96,36 @@ function SignUp() {
     setErrors((errorState) => ({ ...errorState, rPassword: errMessage }));
   };
 
+  const handleImage = ({ target }) => {
+    console.log(target.files);
+  };
+
   return (
     <Grid container justifyContent="center">
       <Paper className={classes.paper}>
         <Grid container item direction="column">
           <PageTitle content="Sign Up" />
-          <Grid item container alignItems="flex-end" justifyContent="center">
+          <Grid item container alignItems="center" justifyContent="center">
             <Avatar src={null} className={classes.avatar} />
-            <IconButton size="small">
-              <AddPhotoAlternateOutlinedIcon />
-            </IconButton>
+
+            <label htmlFor="avatar-button-file">
+              <input
+                accept="image/*"
+                className={classes.inputFile}
+                id="avatar-button-file"
+                type="file"
+                onChange={handleImage}
+              />
+              <Button
+                size="small"
+                variant="outlined"
+                color="secondary"
+                component="span"
+                startIcon={<AddPhotoAlternateOutlinedIcon />}
+              >
+                Avatar
+              </Button>
+            </label>
           </Grid>
           <form autoComplete="off" className={classes.form} onSubmit={handleSubmit}>
             <TextField
@@ -123,7 +145,7 @@ function SignUp() {
               value={inputs.email}
             />
             <TextField
-              label="Birthday"
+              label="Date of birth"
               variant="outlined"
               size="small"
               type="date"
