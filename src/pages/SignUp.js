@@ -199,7 +199,7 @@ function SignUp() {
           </form>
           <Typography>
             Already have an account?{' '}
-            <Button component={Link} to="/login" color="secondary">
+            <Button component={Link} to="/login" color="primary">
               Login
             </Button>
           </Typography>
