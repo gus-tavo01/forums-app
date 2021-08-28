@@ -55,15 +55,6 @@ Login into the application
   - create component AddForumDialog
   - use memo on get requests
 
-- Forum details
-  - remove topics list
-
 ## Incoming features
 
-- View my profile
-- Load images
-  - Select a forum image
-  - Select an avatar image
-- set a default image when null
-  - forum
-  - avatar
+- Set app theme and dark mode

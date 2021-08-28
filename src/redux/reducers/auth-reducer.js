@@ -5,6 +5,9 @@ const {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGOUT,
+  REGISTER_REQUEST,
+  REGISTER_FAILURE,
+  REGISTER_SUCCESS,
   GETPROFILE_SUCCESS,
   GETPROFILE_FAILURE,
 } = authConstants;
@@ -28,6 +31,15 @@ export default (state = initialState, action) => {
       return clearedState;
 
     case LOGIN_FAILURE:
+      return clearedState;
+
+    case REGISTER_REQUEST:
+      return { registering: true };
+
+    case REGISTER_FAILURE:
+      return clearedState;
+
+    case REGISTER_SUCCESS:
       return clearedState;
 
     case GETPROFILE_SUCCESS:

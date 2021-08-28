@@ -9,4 +9,6 @@ export default class AuthService {
     const response = await this.forumsApi.authLogin(authData);
     return response;
   };
+
+  register = async (userData) => this.forumsApi.authRegister(userData);
 }
