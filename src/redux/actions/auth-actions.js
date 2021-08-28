@@ -47,4 +47,22 @@ export const logout = () => {
   return { type: authConstants.LOGOUT };
 };
 
-// register
+export const register = (userAccount) => async (dispatch) => {
+  // Step set registering status
+  dispatch({ type: authConstants.REGISTER_REQUEST });
+
+  // Step post to BE
+  const response = await authService.register(userAccount);
+
+  // Step handle response errors
+  if (response.errorMessage) {
+    dispatch({ type: authConstants.REGISTER_FAILURE });
+    // dispatch alert type failure
+    return false;
+  }
+
+  // Set registering success status
+  dispatch({ type: authConstants.REGISTER_SUCCESS });
+
+  return true;
+};
