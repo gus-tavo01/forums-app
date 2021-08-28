@@ -52,6 +52,13 @@ function SignUp() {
     rPassword: '',
     dateOfBirth: '',
   });
+  const [errors, setErrors] = useState({
+    username: '',
+    email: '',
+    password: '',
+    rPassword: '',
+    dateOfBirth: '',
+  });
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -73,16 +80,18 @@ function SignUp() {
       password: inputs.password,
     };
 
-    if (inputs.password !== inputs.rPassword) {
-      console.log('handle input error for non matching passwords');
-      return;
-    }
-
     const registered = await dispatch(register(userRequest));
 
     if (registered) {
       history.push('/login');
     }
+  };
+
+  const passwordsMatch = () => inputs.password === inputs.rPassword;
+
+  const verifyPassword = () => {
+    const errMessage = !passwordsMatch() ? 'Both passwords does not match' : null;
+    setErrors((errorState) => ({ ...errorState, rPassword: errMessage }));
   };
 
   return (
@@ -142,6 +151,9 @@ function SignUp() {
               onChange={handleOnChange}
               name="rPassword"
               value={inputs.rPassword}
+              onBlur={verifyPassword}
+              error={!!errors.rPassword}
+              helperText={errors.rPassword}
             />
             <LoadingButton loading={!!registering}>
               <Button
@@ -155,7 +167,8 @@ function SignUp() {
                   !inputs.email.trim() ||
                   !inputs.dateOfBirth.trim() ||
                   !inputs.password.trim() ||
-                  !inputs.rPassword.trim()
+                  !inputs.rPassword.trim() ||
+                  !passwordsMatch()
                 }
               >
                 Submit
