@@ -10,7 +10,6 @@ import NotFound from './pages/NotFound';
 import SignUp from './pages/SignUp';
 import ForgotPassword from './pages/ForgotPassword';
 import ForumDetails from './pages/ForumDetails';
-import TopicDetails from './pages/TopicDetails';
 
 function App() {
   const auth = useSelector((state) => state.auth);
@@ -36,11 +35,8 @@ function App() {
         <Route path="/forum/:id">
           <ForumDetails />
         </Route>
-        <Route path="/topic/:id">
-          <TopicDetails />
-        </Route>
+
         {/*
-        /my-forums
         /notifications?
         /account
         */}
