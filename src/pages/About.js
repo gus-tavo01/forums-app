@@ -20,7 +20,7 @@ function About() {
   return (
     <Grid container direction="column" alignItems="center">
       <Paper className={classes.paper}>
-        <PageTitle>About</PageTitle>
+        <PageTitle>About (This page is under construction)</PageTitle>
         <Typography variant="h6" component="h3">
           Author
         </Typography>
