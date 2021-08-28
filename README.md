@@ -19,7 +19,7 @@ The page will reload if the code is edited.
 
 - npm start
 
-### Test
+### Testing
 
 Run ui tests
 
@@ -37,14 +37,6 @@ Your app is ready to be deployed!
 
 ## Core functionality
 
-### Login
-
-Login into the application
-
-### Search forums
-
-- add filters etc..
-
 ### Forum details
 
 ## TODOs
@@ -58,3 +50,4 @@ Login into the application
 ## Incoming features
 
 - Set app theme and dark mode
+- reduxjs/toolkit
