@@ -55,19 +55,6 @@ Login into the application
   - create component AddForumDialog
   - use memo on get requests
 
-- Account Sign Up
-
-  - fix image selection
-  - handle form fields values
-  - create redux actions
-  - update/add reducer
-
 ## Incoming features
 
-- View my profile
-- Load images
-  - Select a forum image
-  - Select an avatar image
-- set a default image when null
-  - forum
-  - avatar
+- Set app theme and dark mode
