@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-// mui components
+// #region mui components
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -20,11 +20,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Tooltip from '@material-ui/core/Tooltip';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Divider from '@material-ui/core/Divider';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+// #endregion mui components
 import { getForums } from '../redux/actions/forums-actions';
 import PageTitle from '../components/PageTitle';
 import ForumsList from '../components/ForumsList';
@@ -44,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     '& > *': {
-      margin: '10px 0px',
+      margin: '6px 0px',
     },
   },
   formControl: {
@@ -61,7 +60,7 @@ const defaultFilters = {
   topic: '',
   author: '',
   isActive: '',
-  public: true,
+  public: '',
   sortBy: '',
   sortOrder: '',
 };
@@ -104,9 +103,9 @@ function Forums() {
     setFilters(newFilters);
   };
 
-  const handleOnPrivateCheck = ({ target }) => {
-    setFilters({ ...filters, public: !target.checked });
-  };
+  // const handleOnPrivateCheck = ({ target }) => {
+  //   setFilters({ ...filters, public: !target.checked });
+  // };
 
   const handleAddForum = () => {
     alert('Open modal to add a new forum');
@@ -175,6 +174,7 @@ function Forums() {
             onChange={handleInput}
             value={filters.topic}
             name="topic"
+            size="small"
           />
           <TextField
             label="Author"
@@ -183,8 +183,9 @@ function Forums() {
             onChange={handleInput}
             value={filters.author}
             name="author"
+            size="small"
           />
-          <FormControl variant="outlined">
+          <FormControl variant="outlined" size="small">
             <InputLabel id="select-active">Forum status</InputLabel>
             <Select
               labelId="select-active"
@@ -199,7 +200,7 @@ function Forums() {
           </FormControl>
 
           <div>
-            <FormControl variant="outlined" className={classes.formControl}>
+            <FormControl variant="outlined" className={classes.formControl} size="small">
               <InputLabel id="select-sortBy">Sort by</InputLabel>
               <Select
                 labelId="select-sortBy"
@@ -217,7 +218,7 @@ function Forums() {
                 <MenuItem value="participants">Participants</MenuItem>
               </Select>
             </FormControl>
-            <FormControl variant="outlined" className={classes.formControl}>
+            <FormControl variant="outlined" className={classes.formControl} size="small">
               <InputLabel id="select-sortOrder">Sort order</InputLabel>
               <Select
                 labelId="select-sortOrder"
@@ -233,17 +234,19 @@ function Forums() {
           </div>
 
           {isLoggedIn && (
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={filters.public === false}
-                  onChange={handleOnPrivateCheck}
-                  name="public"
-                  color="primary"
-                />
-              }
-              label="Include private forums"
-            />
+            <FormControl variant="outlined" className={classes.formControl} size="small">
+              <InputLabel id="select-public">Forum privacity</InputLabel>
+              <Select
+                labelId="select-public"
+                value={filters.public}
+                onChange={handleInput}
+                label="Forum privacity"
+                name="public"
+              >
+                <MenuItem value="true">Public</MenuItem>
+                <MenuItem value="false">Private</MenuItem>
+              </Select>
+            </FormControl>
           )}
         </DialogContent>
         <Divider />

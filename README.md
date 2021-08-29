@@ -37,11 +37,6 @@ Your app is ready to be deployed!
 
 ## TODOs
 
-- Search forums
-
-  - remove checkbox for "include private forums"
-  - when user is auth, the request should aim to private forums endpoint
-
 - App level
   - Create a hook useModal?
 
