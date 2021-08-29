@@ -31,7 +31,8 @@ function AppMenu(props) {
   };
 
   const handleOpenNotifications = () => {
-    console.log('open notifications dialog');
+    // TODO
+    // open a modal dialog
     closeMenu();
   };
 
@@ -62,7 +63,6 @@ function AppMenu(props) {
           horizontal: 'center',
         }}
       >
-        {/* menu items */}
         {isAuth && (
           <MenuItem onClick={closeMenu} component={Link} to="/my-account">
             <ListItemIcon>
