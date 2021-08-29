@@ -9,7 +9,6 @@ import IconButton from '@material-ui/core/IconButton';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import FilterListOutlinedIcon from '@material-ui/icons/FilterListOutlined';
 import Pagination from '@material-ui/lab/Pagination';
-import Dialog from '@material-ui/core/Dialog';
 import Tooltip from '@material-ui/core/Tooltip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Fab from '@material-ui/core/Fab';
@@ -61,19 +60,19 @@ function Forums() {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const [filters, setFilters] = useState(defaultFilters);
   const [page, setPage] = useState(1);
 
   const { isLoggedIn } = useSelector((store) => store.auth);
   const forums = useSelector((store) => store.forums);
 
-  const handleOpenDialog = () => {
-    setDialogOpen(true);
+  const handleOpenFilters = () => {
+    setFiltersOpen(true);
   };
 
-  const handleCloseDialog = () => {
-    setDialogOpen(false);
+  const handleCloseFilters = () => {
+    setFiltersOpen(false);
   };
 
   const handleClearFilters = () => {
@@ -104,7 +103,7 @@ function Forums() {
       <Grid container item direction="column">
         <Grid container item justifyContent="center" alignItems="center">
           <Tooltip title="Filters">
-            <IconButton onClick={handleOpenDialog}>
+            <IconButton onClick={handleOpenFilters}>
               <FilterListOutlinedIcon />
             </IconButton>
           </Tooltip>
@@ -151,15 +150,15 @@ function Forums() {
           </Grid>
         )}
       </Grid>
-      <Dialog open={dialogOpen} onClose={handleCloseDialog}>
-        <ForumFiltersFormDialog
-          onClose={handleCloseDialog}
-          onSubmit={handleCloseDialog}
-          onClear={handleClearFilters}
-          onInputChange={handleFilterChange}
-          currentFilters={filters}
-        />
-      </Dialog>
+
+      <ForumFiltersFormDialog
+        isOpen={filtersOpen}
+        onClose={handleCloseFilters}
+        onSubmit={handleCloseFilters}
+        onClear={handleClearFilters}
+        onInputChange={handleFilterChange}
+        currentFilters={filters}
+      />
     </Grid>
   );
 }

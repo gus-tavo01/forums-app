@@ -1,7 +1,8 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 // #region MUI components
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -54,11 +55,11 @@ const defaultFilters = {
 
 function ForumFiltersFormDialog(props) {
   const classes = useStyles();
-  const { onSubmit, onClear, onClose, onInputChange, currentFilters } = props;
+  const { isOpen, onSubmit, onClear, onClose, onInputChange, currentFilters } = props;
   const { isLoggedIn } = useAuth();
 
   return (
-    <>
+    <Dialog open={isOpen} onClose={onClose}>
       <DialogTitle disableTypography>
         <Typography variant="h6">Forum Search Filters</Typography>
         <IconButton onClick={onClose} className={classes.closeButton}>
@@ -158,11 +159,12 @@ function ForumFiltersFormDialog(props) {
           Set filters
         </Button>
       </DialogActions>
-    </>
+    </Dialog>
   );
 }
 
 ForumFiltersFormDialog.propTypes = {
+  isOpen: PropTypes.bool,
   onClose: PropTypes.func,
   onClear: PropTypes.func,
   onSubmit: PropTypes.func,
@@ -178,6 +180,7 @@ ForumFiltersFormDialog.propTypes = {
 };
 
 ForumFiltersFormDialog.defaultProps = {
+  isOpen: false,
   onClose: () => null,
   onClear: () => null,
   onSubmit: () => null,
