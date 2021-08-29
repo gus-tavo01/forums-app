@@ -5,28 +5,20 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import FilterListOutlinedIcon from '@material-ui/icons/FilterListOutlined';
 import Pagination from '@material-ui/lab/Pagination';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Tooltip from '@material-ui/core/Tooltip';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Divider from '@material-ui/core/Divider';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 // #endregion mui components
 import { getForums } from '../redux/actions/forums-actions';
 import PageTitle from '../components/PageTitle';
 import ForumsList from '../components/ForumsList';
+import ForumFiltersFormDialog from '../components/ForumFiltersFormDialog';
 
 const useStyles = makeStyles((theme) => ({
   paginationContainer: {
@@ -69,43 +61,38 @@ function Forums() {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const [filters, setFilters] = useState(defaultFilters);
   const [page, setPage] = useState(1);
 
   const { isLoggedIn } = useSelector((store) => store.auth);
   const forums = useSelector((store) => store.forums);
 
-  const handleSubmit = () => {
-    // get forums
+  const handleOpenDialog = () => {
+    setDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+  };
+
+  const handleClearFilters = () => {
+    setFilters(defaultFilters);
+  };
+
+  const handleFilterChange = ({ target }) => {
+    const newFilters = { ...filters, [target.name]: target.value };
+    setFilters(newFilters);
+  };
+
+  const handleSearchSubmit = () => {
     dispatch(getForums({ ...filters, page }));
   };
 
   const onPageChange = (ev, value) => {
     setPage(value);
-    handleSubmit();
+    handleSearchSubmit();
   };
-
-  const handleClose = () => {
-    setFiltersOpen(false);
-  };
-
-  const handleClear = () => {
-    setFilters(defaultFilters);
-  };
-
-  const handleOpenFilters = () => {
-    setFiltersOpen(true);
-  };
-
-  const handleInput = ({ target }) => {
-    const newFilters = { ...filters, [target.name]: target.value };
-    setFilters(newFilters);
-  };
-
-  // const handleOnPrivateCheck = ({ target }) => {
-  //   setFilters({ ...filters, public: !target.checked });
-  // };
 
   const handleAddForum = () => {
     alert('Open modal to add a new forum');
@@ -117,7 +104,7 @@ function Forums() {
       <Grid container item direction="column">
         <Grid container item justifyContent="center" alignItems="center">
           <Tooltip title="Filters">
-            <IconButton onClick={handleOpenFilters}>
+            <IconButton onClick={handleOpenDialog}>
               <FilterListOutlinedIcon />
             </IconButton>
           </Tooltip>
@@ -126,12 +113,12 @@ function Forums() {
             type="search"
             variant="outlined"
             size="small"
-            onChange={handleInput}
+            onChange={handleFilterChange}
             value={filters.topic}
             name="topic"
           />
           <Tooltip title="Search">
-            <IconButton onClick={handleSubmit}>
+            <IconButton onClick={handleSearchSubmit} color="primary">
               <SearchOutlinedIcon />
             </IconButton>
           </Tooltip>
@@ -164,100 +151,14 @@ function Forums() {
           </Grid>
         )}
       </Grid>
-      <Dialog open={filtersOpen} onClose={handleClose}>
-        <DialogTitle id="form-dialog-title">Forum Search Filters</DialogTitle>
-        <DialogContent className={classes.form}>
-          <TextField
-            label="Forum topic"
-            variant="outlined"
-            fullWidth
-            onChange={handleInput}
-            value={filters.topic}
-            name="topic"
-            size="small"
-          />
-          <TextField
-            label="Author"
-            variant="outlined"
-            fullWidth
-            onChange={handleInput}
-            value={filters.author}
-            name="author"
-            size="small"
-          />
-          <FormControl variant="outlined" size="small">
-            <InputLabel id="select-active">Forum status</InputLabel>
-            <Select
-              labelId="select-active"
-              value={filters.isActive}
-              onChange={handleInput}
-              label="Forum status"
-              name="isActive"
-            >
-              <MenuItem value="true">Active only</MenuItem>
-              <MenuItem value="false">Inactive only</MenuItem>
-            </Select>
-          </FormControl>
-
-          <div>
-            <FormControl variant="outlined" className={classes.formControl} size="small">
-              <InputLabel id="select-sortBy">Sort by</InputLabel>
-              <Select
-                labelId="select-sortBy"
-                value={filters.sortBy}
-                onChange={handleInput}
-                label="Sort by"
-                name="sortBy"
-              >
-                <MenuItem value="topic">Topic</MenuItem>
-                <MenuItem value="author">Author</MenuItem>
-                <MenuItem value="createDate">Creation date</MenuItem>
-                <MenuItem value="lastActivity">Activity date</MenuItem>
-                <MenuItem value="isActive">Status</MenuItem>
-                {isLoggedIn && <MenuItem value="isPrivate">Privacity</MenuItem>}
-                <MenuItem value="participants">Participants</MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl variant="outlined" className={classes.formControl} size="small">
-              <InputLabel id="select-sortOrder">Sort order</InputLabel>
-              <Select
-                labelId="select-sortOrder"
-                value={filters.sortOrder}
-                onChange={handleInput}
-                label="Sort order"
-                name="sortOrder"
-              >
-                <MenuItem value="asc">Ascendent</MenuItem>
-                <MenuItem value="desc">Descendent</MenuItem>
-              </Select>
-            </FormControl>
-          </div>
-
-          {isLoggedIn && (
-            <FormControl variant="outlined" className={classes.formControl} size="small">
-              <InputLabel id="select-public">Forum privacity</InputLabel>
-              <Select
-                labelId="select-public"
-                value={filters.public}
-                onChange={handleInput}
-                label="Forum privacity"
-                name="public"
-              >
-                <MenuItem value="true">Public</MenuItem>
-                <MenuItem value="false">Private</MenuItem>
-              </Select>
-            </FormControl>
-          )}
-        </DialogContent>
-        <Divider />
-        <DialogActions className={classes.actions}>
-          <Button onClick={handleClear} variant="outlined">
-            Clear all
-          </Button>
-          <Button onClick={handleClose} color="primary" variant="contained">
-            Add filters
-          </Button>
-        </DialogActions>
+      <Dialog open={dialogOpen} onClose={handleCloseDialog}>
+        <ForumFiltersFormDialog
+          onClose={handleCloseDialog}
+          onSubmit={handleCloseDialog}
+          onClear={handleClearFilters}
+          onInputChange={handleFilterChange}
+          currentFilters={filters}
+        />
       </Dialog>
     </Grid>
   );
