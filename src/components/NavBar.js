@@ -1,11 +1,13 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
+// #region MUI components
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+// #endregion MUI components
 import { Link } from 'react-router-dom';
 import AppMenu from './AppMenu';
+import useAuth from '../hooks/useAuth';
 
 const useStyles = makeStyles(() => ({
   title: {
@@ -17,9 +19,9 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function NavBar(props) {
+function NavBar() {
   const classes = useStyles();
-  const { isLoggedIn } = props;
+  const { isLoggedIn } = useAuth();
   return (
     <>
       <AppBar position="fixed" color="primary">
@@ -36,13 +38,5 @@ function NavBar(props) {
     </>
   );
 }
-
-NavBar.propTypes = {
-  isLoggedIn: PropTypes.bool,
-};
-
-NavBar.defaultProps = {
-  isLoggedIn: false,
-};
 
 export default NavBar;

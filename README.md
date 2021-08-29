@@ -35,17 +35,10 @@ Your app is ready to be deployed!
 
 - npm run build
 
-## Core functionality
-
-### Forum details
-
 ## TODOs
 
-- Search forums
-
-  - create component ForumFiltersDialog
-  - create component AddForumDialog
-  - use memo on get requests
+- App level
+  - Create a hook useModal?
 
 ## Incoming features
 

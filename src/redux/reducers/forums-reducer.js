@@ -10,7 +10,7 @@ export default (state = initialState, action) => {
     case GET_FAILURE:
       return initialState;
     case GET_REQUEST:
-      return { ...state, fetching: true };
+      return { fetching: true };
     default:
       return state;
   }
