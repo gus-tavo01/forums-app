@@ -64,7 +64,7 @@ function AppMenu(props) {
       >
         {/* menu items */}
         {isAuth && (
-          <MenuItem onClick={closeMenu} component={Link} to="/account">
+          <MenuItem onClick={closeMenu} component={Link} to="/my-account">
             <ListItemIcon>
               <AccountCircleOutlinedIcon />
             </ListItemIcon>
