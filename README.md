@@ -37,9 +37,6 @@ Your app is ready to be deployed!
 
 ## TODOs
 
-- App level
-  - Create a hook useModal?
-
 ## Incoming features
 
 - Set app theme and dark mode
