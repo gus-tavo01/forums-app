@@ -35,17 +35,15 @@ Your app is ready to be deployed!
 
 - npm run build
 
-## Core functionality
-
-### Forum details
-
 ## TODOs
 
 - Search forums
 
-  - create component ForumFiltersDialog
-  - create component AddForumDialog
-  - use memo on get requests
+  - remove checkbox for "include private forums"
+  - when user is auth, the request should aim to private forums endpoint
+
+- App level
+  - Create a hook useModal?
 
 ## Incoming features
 
