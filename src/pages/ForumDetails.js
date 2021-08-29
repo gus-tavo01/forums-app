@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+
 // #region mui components
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -9,8 +10,10 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 // #endregion mui components
-// components
+
 import FromDate from '../components/FromDate';
 import PageTitle from '../components/PageTitle';
 import AppContainer from '../components/AppContainer';
@@ -58,6 +61,8 @@ function ForumDetails() {
   const onLeaveclick = () => {
     console.log('Leave this forum');
   };
+
+  const onPostClick = () => {};
 
   return (
     <AppContainer>
@@ -119,6 +124,13 @@ function ForumDetails() {
           </Button>
         </Grid>
         {/* Comments list */}
+        {isLoggedIn && (
+          <Grid container item justifyContent="flex-end">
+            <Fab color="primary" onClick={onPostClick}>
+              <AddIcon />
+            </Fab>
+          </Grid>
+        )}
       </Grid>
     </AppContainer>
   );
