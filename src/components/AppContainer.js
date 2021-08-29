@@ -16,7 +16,7 @@ function AppContainer(props) {
 }
 
 AppContainer.propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.arrayOf(PropTypes.element)]),
 };
 
 AppContainer.defaultProps = {
