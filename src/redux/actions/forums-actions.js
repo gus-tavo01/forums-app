@@ -10,12 +10,12 @@ export const getForums = (filters) => async (dispatch) => {
   // Step verify private or public forums
   let getForumsResponse = {};
 
-  if (filters.public) {
-    // Step fetch forums
-    getForumsResponse = await forumsService.get(filters);
-  } else {
+  // Step fetch forums
+  if (filters.public === 'false') {
     // TODO
     // getForumsResponse = await usersService.getForums(filters);
+    getForumsResponse = await forumsService.get(filters);
+  } else {
     getForumsResponse = await forumsService.get(filters);
   }
 
