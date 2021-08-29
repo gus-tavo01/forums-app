@@ -15,9 +15,11 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 // #endregion mui components
 import { getForums } from '../redux/actions/forums-actions';
+
 import PageTitle from '../components/PageTitle';
 import ForumsList from '../components/ForumsList';
 import ForumFiltersFormDialog from '../components/ForumFiltersFormDialog';
+import ForumCreateFormDialog from '../components/ForumCreateFormDialog';
 
 const useStyles = makeStyles((theme) => ({
   paginationContainer: {
@@ -30,21 +32,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     minWidth: '300px',
   },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    '& > *': {
-      margin: '6px 0px',
-    },
-  },
-  formControl: {
-    minWidth: 120,
-    margin: '1px',
-  },
-  actions: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
 }));
 
 const defaultFilters = {
@@ -55,6 +42,12 @@ const defaultFilters = {
   sortBy: '',
   sortOrder: '',
 };
+const defaultCreateForumInputs = {
+  topic: '',
+  description: '',
+  imageSrc: '',
+  isPrivate: '',
+};
 
 function Forums() {
   const classes = useStyles();
@@ -63,6 +56,9 @@ function Forums() {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [filters, setFilters] = useState(defaultFilters);
   const [page, setPage] = useState(1);
+
+  const [createForumOpen, setCreateForumOpen] = useState(false);
+  const [createForumInputs, setCreateForumInputs] = useState(defaultCreateForumInputs);
 
   const { isLoggedIn } = useSelector((store) => store.auth);
   const forums = useSelector((store) => store.forums);
@@ -93,8 +89,24 @@ function Forums() {
     handleSearchSubmit();
   };
 
-  const handleAddForum = () => {
-    alert('Open modal to add a new forum');
+  const handleCreateForumInputs = ({ target }) => {
+    const value = target.name === 'isPrivate' ? target.checked.toString() : target.value;
+    const newInputs = { ...createForumInputs, [target.name]: value };
+    setCreateForumInputs(newInputs);
+  };
+
+  const handleAddForumClick = () => {
+    if (!isLoggedIn) return;
+    setCreateForumOpen(true);
+  };
+
+  const handleAddForumClose = () => {
+    setCreateForumOpen(false);
+  };
+
+  const handleCreateSubmit = () => {
+    console.log('Submit forum data');
+    console.log(createForumInputs);
   };
 
   return (
@@ -144,7 +156,7 @@ function Forums() {
         </Grid>
         {isLoggedIn && (
           <Grid container item justifyContent="flex-end">
-            <Fab color="primary" onClick={handleAddForum}>
+            <Fab color="primary" onClick={handleAddForumClick}>
               <AddIcon />
             </Fab>
           </Grid>
@@ -159,6 +171,16 @@ function Forums() {
         onInputChange={handleFilterChange}
         currentFilters={filters}
       />
+      {isLoggedIn && (
+        <ForumCreateFormDialog
+          isOpen={createForumOpen}
+          onClose={handleAddForumClose}
+          onSubmit={handleCreateSubmit}
+          onInputChange={handleCreateForumInputs}
+          submitDisabled={!createForumInputs.topic.trim() || !createForumInputs.description.trim()}
+          formValues={createForumInputs}
+        />
+      )}
     </Grid>
   );
 }
