@@ -14,7 +14,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 // #endregion mui components
-import { getForums } from '../redux/actions/forums-actions';
+import { getForums, addForum } from '../redux/actions/forums-actions';
 
 import PageTitle from '../components/PageTitle';
 import ForumsList from '../components/ForumsList';
@@ -60,7 +60,7 @@ function Forums() {
   const [createForumOpen, setCreateForumOpen] = useState(false);
   const [createForumInputs, setCreateForumInputs] = useState(defaultCreateForumInputs);
 
-  const { isLoggedIn } = useSelector((store) => store.auth);
+  const { isLoggedIn, token } = useSelector((store) => store.auth);
   const forums = useSelector((store) => store.forums);
 
   const handleOpenFilters = () => {
@@ -104,9 +104,17 @@ function Forums() {
     setCreateForumOpen(false);
   };
 
-  const handleCreateSubmit = () => {
-    console.log('Submit forum data');
-    console.log(createForumInputs);
+  const handleCreateSubmit = async () => {
+    const payload = {
+      token,
+      forum: { ...createForumInputs, isPrivate: createForumInputs.isPrivate === 'true' },
+    };
+
+    const addSuccess = await dispatch(addForum(payload));
+    if (addSuccess) {
+      handleAddForumClose();
+      handleSearchSubmit();
+    }
   };
 
   return (
