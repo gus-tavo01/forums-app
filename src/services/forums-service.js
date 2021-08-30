@@ -19,4 +19,9 @@ export default class ForumsService {
 
     return this.forumsApi.forumsGet(params);
   };
+
+  create = async (forumData, token) => {
+    this.forumsApi.setToken(token);
+    return this.forumsApi.forumsPost(forumData);
+  };
 }

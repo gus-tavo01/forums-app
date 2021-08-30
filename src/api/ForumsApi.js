@@ -77,19 +77,12 @@ export default class ForumsApi {
   // #region Forums endpoint
   forumsGet = async (params) => this.instance.get('/forums', { params });
 
-  // forumsPost
+  forumsPost = async (forumData) => this.instance.post('/forums', forumData);
+
   // forumsPatch
   // forumsDelete
   // forumsGetById
   // #endregion Forums endpoint
-
-  // #region Topics endpoints
-  topicsGet = async (forumId, params) => this.instance.get(`/forums/${forumId}/topics`, { params });
-  // topicsPost
-  // topicsGetById
-  // topicsPatch
-  // topicsDelete
-  // #endregion Topics endpoints
 
   // TODO
   // Comments endpoint
