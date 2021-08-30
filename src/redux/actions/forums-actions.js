@@ -33,10 +33,22 @@ export const getForums = (filters) => async (dispatch) => {
 
 export const addForum = (payload) => async (dispatch) => {
   // Step display loader
-  dispatch({ type: forumsConstants.ADD_REQUEST, payload });
+  dispatch({ type: forumsConstants.ADD_REQUEST });
+
   // Step invoke service.add
-  // Step handle errors
-  // Step add added forum on state
+  const response = await forumsService.create(payload.forum, payload.token);
+
+  if (response.errorMessage) {
+    // Step clear loading state and display errors
+    dispatch({ type: forumsConstants.ADD_FAILURE });
+    // Step alert error message
+    // dispatch({});
+    return false;
+  }
+
+  // Step display successful response
+  dispatch({ type: forumsConstants.ADD_SUCCESS });
+  return true;
 };
 
 // removeForum(payload)
