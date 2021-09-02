@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 // #region MUI components
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -8,6 +8,7 @@ import AddPhotoAlternateOutlinedIcon from '@material-ui/icons/AddPhotoAlternateO
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
+import CircularProgress from '@material-ui/core/CircularProgress';
 // #endregion mui components
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -32,8 +33,8 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
   },
   avatar: {
-    width: theme.spacing(7),
-    height: theme.spacing(7),
+    width: theme.spacing(9),
+    height: theme.spacing(9),
     marginRight: theme.spacing(1),
   },
   inputFile: {
@@ -60,7 +61,11 @@ function SignUp() {
     password: '',
     rPassword: '',
     dateOfBirth: '',
+    avatar: '',
   });
+  const [imageState, setImageState] = useState({ src: null });
+
+  const fileReader = useMemo(() => new FileReader(), []);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -76,6 +81,7 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const userRequest = {
+      avatar: imageState.src,
       username: inputs.username,
       email: inputs.email,
       dateOfBirth: inputs.dateOfBirth,
@@ -97,7 +103,22 @@ function SignUp() {
   };
 
   const handleImage = ({ target }) => {
-    console.log(target.files);
+    const [file] = target.files;
+
+    fileReader.onloadstart = () => {
+      setImageState({ loading: true });
+    };
+
+    fileReader.onloadend = () => {
+      setImageState({ src: fileReader.result });
+    };
+
+    // Step read file as data url
+    if (file) {
+      fileReader.readAsDataURL(file);
+    } else {
+      setImageState({ src: '' });
+    }
   };
 
   return (
@@ -106,7 +127,11 @@ function SignUp() {
         <Grid container item direction="column">
           <PageTitle content="Sign Up" />
           <Grid item container alignItems="center" justifyContent="center">
-            <Avatar src={null} className={classes.avatar} />
+            {imageState.loading ? (
+              <CircularProgress className={classes.avatar} />
+            ) : (
+              <Avatar src={imageState.src} className={classes.avatar} />
+            )}
 
             <label htmlFor="avatar-button-file">
               <input
