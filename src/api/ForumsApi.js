@@ -7,8 +7,7 @@ function successCallback(response) {
 
 function errorCallback(error) {
   let payload = {
-    errorMessage: error.request.statusText,
-    statusCode: error.request.status,
+    errorMessage: error.toJSON().message,
   };
 
   if (error.response) {
