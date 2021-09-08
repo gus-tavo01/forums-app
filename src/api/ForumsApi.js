@@ -45,6 +45,11 @@ export default class ForumsApi {
   // #endregion Auth endpoint
 
   // #region Users endpoint
+  userForumsGet = async (userId, filters, token) => {
+    this.setToken(token);
+    return this.instance.get(`/users/${userId}/forums`, { params: filters });
+  };
+
   usersGetByLoginName = async (loginName, token) => {
     this.setToken(token);
     return this.instance.get(`/users?userName=${loginName}`);
