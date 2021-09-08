@@ -1,20 +1,27 @@
 import ForumsService from '../../services/forums-service';
+import UsersService from '../../services/users-service';
 import forumsConstants from '../action-types/forums-action-types';
 
 const forumsService = new ForumsService();
+const usersService = new UsersService();
 
 export const getForums = (filters) => async (dispatch) => {
   // Step display loading spinner on forums page
   dispatch({ type: forumsConstants.GET_REQUEST });
 
-  // Step verify private or public forums
   let getForumsResponse = {};
 
   // Step fetch forums
   if (filters.public === 'false') {
-    // TODO
-    // getForumsResponse = await usersService.getForums(filters);
-    getForumsResponse = await forumsService.get(filters);
+    const stringUser = sessionStorage.getItem('user');
+    const user = stringUser ? JSON.parse(stringUser) : null;
+    const token = sessionStorage.getItem('userToken');
+    if (!user) {
+      // TODO
+      // Step dispatch alert error
+      return false;
+    }
+    getForumsResponse = await usersService.getForums(user.id, filters, token);
   } else {
     getForumsResponse = await forumsService.get(filters);
   }
