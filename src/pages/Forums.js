@@ -11,7 +11,6 @@ import FilterListOutlinedIcon from '@material-ui/icons/FilterListOutlined';
 import Pagination from '@material-ui/lab/Pagination';
 import Tooltip from '@material-ui/core/Tooltip';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 // #endregion mui components
 import { getForums, addForum } from '../redux/actions/forums-actions';
@@ -20,6 +19,7 @@ import PageTitle from '../components/PageTitle';
 import ForumsList from '../components/ForumsList';
 import ForumFiltersFormDialog from '../components/ForumFiltersFormDialog';
 import ForumCreateFormDialog from '../components/ForumCreateFormDialog';
+import FloatingButton from '../components/FloatingButton';
 
 const useStyles = makeStyles((theme) => ({
   paginationContainer: {
@@ -164,9 +164,9 @@ function Forums() {
         </Grid>
         {isLoggedIn && (
           <Grid container item justifyContent="flex-end">
-            <Fab color="primary" onClick={handleAddForumClick}>
+            <FloatingButton onClick={handleAddForumClick} color="primary">
               <AddIcon />
-            </Fab>
+            </FloatingButton>
           </Grid>
         )}
       </Grid>
