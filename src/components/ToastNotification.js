@@ -18,12 +18,12 @@ function Transition(props) {
 
 function ToastNotification() {
   const classes = useStyles();
-  const { toast, setClose } = useToast();
+  const { toast, setToastClose } = useToast();
   const { isOpen, severity, message, autoHideDuration, variant, position } = toast;
 
   const handleClose = (e, reason) => {
     if (reason !== 'clickaway') {
-      setClose();
+      setToastClose();
     }
   };
 
