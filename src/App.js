@@ -12,6 +12,7 @@ import ForgotPassword from './pages/ForgotPassword';
 import ForumDetails from './pages/ForumDetails';
 import Participants from './pages/Participants';
 import Account from './pages/Account';
+import ToastNotification from './components/ToastNotification';
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
           <NotFound />
         </Route>
       </Switch>
+      <ToastNotification />
     </Router>
   );
 }
