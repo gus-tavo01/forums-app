@@ -45,7 +45,7 @@ function AppMenu(props) {
   const handleLogout = async () => {
     closeMenu();
     await dispatch(logout());
-    history.push('/');
+    history.push('/login');
     setToastOpen({ message: 'Logged out', severity: ToastTypes.INFO });
   };
 
