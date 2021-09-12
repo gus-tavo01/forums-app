@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-// #region mui components
+
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -12,7 +12,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import Tooltip from '@material-ui/core/Tooltip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import AddIcon from '@material-ui/icons/Add';
-// #endregion mui components
+
 import { getForums, addForum } from '../redux/actions/forums-actions';
 
 import PageTitle from '../components/PageTitle';
@@ -20,6 +20,9 @@ import ForumsList from '../components/ForumsList';
 import ForumFiltersFormDialog from '../components/ForumFiltersFormDialog';
 import ForumCreateFormDialog from '../components/ForumCreateFormDialog';
 import FloatingButton from '../components/FloatingButton';
+
+import useToast from '../hooks/useToast';
+import ToastTypes from '../constants/ToastTypes';
 
 const useStyles = makeStyles((theme) => ({
   paginationContainer: {
@@ -63,6 +66,8 @@ function Forums() {
   const { isLoggedIn, token } = useSelector((store) => store.auth);
   const forums = useSelector((store) => store.forums);
 
+  const { setToastOpen } = useToast();
+
   const handleOpenFilters = () => {
     setFiltersOpen(true);
   };
@@ -78,6 +83,20 @@ function Forums() {
   const handleFilterChange = ({ target }) => {
     const newFilters = { ...filters, [target.name]: target.value };
     setFilters(newFilters);
+  };
+
+  const handleAddFilters = () => {
+    if (
+      filters.topic ||
+      filters.author ||
+      filters.isActive ||
+      filters.public ||
+      filters.sortOrder ||
+      filters.sortBy
+    ) {
+      setToastOpen({ message: 'Filters added', severity: ToastTypes.INFO });
+    }
+    setFiltersOpen(false);
   };
 
   const handleSearchSubmit = () => {
@@ -114,6 +133,7 @@ function Forums() {
     if (addSuccess) {
       handleAddForumClose();
       handleSearchSubmit();
+      setToastOpen({ message: 'Forum created Successfully!', severity: ToastTypes.SUCCESS });
     }
   };
 
@@ -174,7 +194,7 @@ function Forums() {
       <ForumFiltersFormDialog
         isOpen={filtersOpen}
         onClose={handleCloseFilters}
-        onSubmit={handleCloseFilters}
+        onSubmit={handleAddFilters}
         onClear={handleClearFilters}
         onInputChange={handleFilterChange}
         currentFilters={filters}
