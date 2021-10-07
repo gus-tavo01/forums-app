@@ -96,13 +96,21 @@ function SignUp() {
 
     const registered = await dispatch(register(userRequest));
 
+    const successToast = {
+      message: 'Your account has been created successfully!',
+      severity: ToastTypes.SUCCESS,
+    };
+    const failureToast = {
+      message: 'Something happened.. please try again later',
+      severity: ToastTypes.ERROR,
+    };
+    const toast = registered ? successToast : failureToast;
+
     if (registered) {
       history.push('/login');
-      setToastOpen({
-        message: 'Your account has been created successfully!',
-        severity: ToastTypes.SUCCESS,
-      });
     }
+
+    setToastOpen(toast);
   };
 
   const passwordsMatch = () => inputs.password === inputs.rPassword;
