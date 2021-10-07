@@ -130,11 +130,21 @@ function Forums() {
     };
 
     const addSuccess = await dispatch(addForum(payload));
+
+    const successToast = { message: 'Forum has been created 👌', severity: ToastTypes.SUCCESS };
+    const failureToast = {
+      message: `An error has occurred while creating the forum 😣`,
+      severity: ToastTypes.ERROR,
+    };
+
+    const toast = addSuccess ? successToast : failureToast;
+
     if (addSuccess) {
       handleAddForumClose();
       handleSearchSubmit();
-      setToastOpen({ message: 'Forum created Successfully!', severity: ToastTypes.SUCCESS });
     }
+
+    setToastOpen(toast);
   };
 
   return (
