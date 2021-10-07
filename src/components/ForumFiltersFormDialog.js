@@ -156,7 +156,7 @@ function ForumFiltersFormDialog(props) {
           Clear filters
         </Button>
         <Button onClick={onSubmit} color="primary" variant="contained">
-          Set filters
+          Close
         </Button>
       </DialogActions>
     </Dialog>

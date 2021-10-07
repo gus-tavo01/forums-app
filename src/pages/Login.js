@@ -4,11 +4,17 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../redux/actions/auth-actions';
+
 import PageTitle from '../components/PageTitle';
 import LoadingButton from '../components/LoadingButton';
+
+import useToast from '../hooks/useToast';
+
+import ToastTypes from '../constants/ToastTypes';
 
 const useStyles = makeStyles(() => ({
   paper: {
@@ -35,6 +41,7 @@ function Login() {
   const dispatch = useDispatch();
   const { isLoggedIn, logginIn } = useSelector((state) => state.auth);
   const history = useHistory();
+  const { setToastOpen } = useToast();
   const [inputs, setInputs] = useState({ username: '', password: '' });
   const { username, password } = inputs;
 
@@ -55,9 +62,17 @@ function Login() {
     if (logginIn) return;
 
     const loginSuccess = await dispatch(login(inputs));
+
+    const successToast = { message: `Welcome ${username}`, severity: ToastTypes.INFO };
+    const failureToast = { message: 'Login failed', severity: ToastTypes.ERROR };
+
+    const toast = loginSuccess ? successToast : failureToast;
+
     if (loginSuccess) {
       history.push('/');
     }
+
+    setToastOpen(toast);
   };
 
   return (

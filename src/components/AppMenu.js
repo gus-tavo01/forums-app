@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+
 import IconButton from '@material-ui/core/IconButton';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import MenuOutlinedIcon from '@material-ui/icons/MenuOutlined';
@@ -11,14 +12,19 @@ import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider';
+
 import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { logout } from '../redux/actions/auth-actions';
+
+import useToast from '../hooks/useToast';
+import ToastTypes from '../constants/ToastTypes';
 
 function AppMenu(props) {
   const { isAuth } = props;
   const dispatch = useDispatch();
   const history = useHistory();
+  const { setToastOpen } = useToast();
   const [anchorEl, setAnchorEl] = useState(null);
   const accountMenuOpen = Boolean(anchorEl);
 
@@ -39,7 +45,8 @@ function AppMenu(props) {
   const handleLogout = async () => {
     closeMenu();
     await dispatch(logout());
-    history.push('/');
+    history.push('/login');
+    setToastOpen({ message: 'Logged out', severity: ToastTypes.INFO });
   };
 
   return (

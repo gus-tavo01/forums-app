@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-// #region mui components
+
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -12,7 +12,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import Tooltip from '@material-ui/core/Tooltip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import AddIcon from '@material-ui/icons/Add';
-// #endregion mui components
+
 import { getForums, addForum } from '../redux/actions/forums-actions';
 
 import PageTitle from '../components/PageTitle';
@@ -20,6 +20,9 @@ import ForumsList from '../components/ForumsList';
 import ForumFiltersFormDialog from '../components/ForumFiltersFormDialog';
 import ForumCreateFormDialog from '../components/ForumCreateFormDialog';
 import FloatingButton from '../components/FloatingButton';
+
+import useToast from '../hooks/useToast';
+import ToastTypes from '../constants/ToastTypes';
 
 const useStyles = makeStyles((theme) => ({
   paginationContainer: {
@@ -63,6 +66,12 @@ function Forums() {
   const { isLoggedIn, token } = useSelector((store) => store.auth);
   const forums = useSelector((store) => store.forums);
 
+  const { setToastOpen } = useToast();
+
+  useEffect(() => {
+    dispatch(getForums({ ...filters, page }));
+  }, []);
+
   const handleOpenFilters = () => {
     setFiltersOpen(true);
   };
@@ -78,6 +87,20 @@ function Forums() {
   const handleFilterChange = ({ target }) => {
     const newFilters = { ...filters, [target.name]: target.value };
     setFilters(newFilters);
+  };
+
+  const handleAddFilters = () => {
+    if (
+      filters.topic ||
+      filters.author ||
+      filters.isActive ||
+      filters.public ||
+      filters.sortOrder ||
+      filters.sortBy
+    ) {
+      setToastOpen({ message: 'Filters added', severity: ToastTypes.INFO });
+    }
+    setFiltersOpen(false);
   };
 
   const handleSearchSubmit = () => {
@@ -111,10 +134,21 @@ function Forums() {
     };
 
     const addSuccess = await dispatch(addForum(payload));
+
+    const successToast = { message: 'Forum has been created 👌', severity: ToastTypes.SUCCESS };
+    const failureToast = {
+      message: `An error has occurred while creating the forum 😣`,
+      severity: ToastTypes.ERROR,
+    };
+
+    const toast = addSuccess ? successToast : failureToast;
+
     if (addSuccess) {
       handleAddForumClose();
       handleSearchSubmit();
     }
+
+    setToastOpen(toast);
   };
 
   return (
@@ -174,7 +208,7 @@ function Forums() {
       <ForumFiltersFormDialog
         isOpen={filtersOpen}
         onClose={handleCloseFilters}
-        onSubmit={handleCloseFilters}
+        onSubmit={handleAddFilters}
         onClear={handleClearFilters}
         onInputChange={handleFilterChange}
         currentFilters={filters}

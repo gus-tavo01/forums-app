@@ -16,11 +16,9 @@ export const getForums = (filters) => async (dispatch) => {
     const stringUser = sessionStorage.getItem('user');
     const user = stringUser ? JSON.parse(stringUser) : null;
     const token = sessionStorage.getItem('userToken');
-    if (!user) {
-      // TODO
-      // Step dispatch alert error
-      return false;
-    }
+
+    if (!user) return false;
+
     getForumsResponse = await usersService.getForums(user.id, filters, token);
   } else {
     getForumsResponse = await forumsService.get(filters);
@@ -29,7 +27,6 @@ export const getForums = (filters) => async (dispatch) => {
   // Step handle response
   if (getForumsResponse.errorMessage) {
     dispatch({ type: forumsConstants.GET_FAILURE });
-    // dispatch alert error
     return false;
   }
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
-// #region MUI components
+
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -9,12 +9,16 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import CircularProgress from '@material-ui/core/CircularProgress';
-// #endregion mui components
+
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { register } from '../redux/actions/auth-actions';
+
 import PageTitle from '../components/PageTitle';
 import LoadingButton from '../components/LoadingButton';
+
+import useToast from '../hooks/useToast';
+import ToastTypes from '../constants/ToastTypes';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -48,6 +52,8 @@ function SignUp() {
   const history = useHistory();
 
   const { registering, isLoggedIn } = useSelector((store) => store.auth);
+  const { setToastOpen } = useToast();
+
   const [inputs, setInputs] = useState({
     username: '',
     email: '',
@@ -90,9 +96,21 @@ function SignUp() {
 
     const registered = await dispatch(register(userRequest));
 
+    const successToast = {
+      message: 'Your account has been created successfully!',
+      severity: ToastTypes.SUCCESS,
+    };
+    const failureToast = {
+      message: 'Something happened.. please try again later',
+      severity: ToastTypes.ERROR,
+    };
+    const toast = registered ? successToast : failureToast;
+
     if (registered) {
       history.push('/login');
     }
+
+    setToastOpen(toast);
   };
 
   const passwordsMatch = () => inputs.password === inputs.rPassword;
