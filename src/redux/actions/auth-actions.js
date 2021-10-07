@@ -1,6 +1,7 @@
 import AuthService from '../../services/auth-service';
 import UsersService from '../../services/users-service';
 import authConstants from '../action-types/auth-action-types';
+import forumsConstants from '../action-types/forums-action-types';
 
 const authService = new AuthService();
 const usersService = new UsersService();
@@ -41,11 +42,15 @@ export const login = (authData) => async (dispatch) => {
   return true;
 };
 
-export const logout = () => {
+export const logout = () => (dispatch) => {
   // Step clear session storage
   sessionStorage.removeItem('userToken');
   sessionStorage.removeItem('user');
-  return { type: authConstants.LOGOUT };
+
+  // Step clear forums list
+  dispatch({ type: forumsConstants.CLEAR });
+
+  dispatch({ type: authConstants.LOGOUT });
 };
 
 export const register = (userAccount) => async (dispatch) => {

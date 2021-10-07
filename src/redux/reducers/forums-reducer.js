@@ -7,6 +7,7 @@ const {
   ADD_REQUEST,
   ADD_FAILURE,
   ADD_SUCCESS,
+  CLEAR,
 } = forumsConstants;
 const initialState = {};
 
@@ -25,6 +26,9 @@ export default (state = initialState, action) => {
       return { ...state, fetching: false };
     case ADD_SUCCESS:
       return state;
+
+    case CLEAR:
+      return initialState;
     default:
       return state;
   }

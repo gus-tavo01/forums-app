@@ -6,5 +6,7 @@ const forumsConstants = {
   ADD_REQUEST: 'FORUMS_ADD_REQUEST',
   ADD_SUCCESS: 'FORUMS_ADD_SUCCESS',
   ADD_FAILURE: 'FORUMS_ADD_FAILURE',
+
+  CLEAR: 'FORUMS_CLEAR',
 };
 export default forumsConstants;

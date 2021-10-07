@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -67,6 +67,10 @@ function Forums() {
   const forums = useSelector((store) => store.forums);
 
   const { setToastOpen } = useToast();
+
+  useEffect(() => {
+    dispatch(getForums({ ...filters, page }));
+  }, []);
 
   const handleOpenFilters = () => {
     setFiltersOpen(true);
