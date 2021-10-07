@@ -62,10 +62,17 @@ function Login() {
     if (logginIn) return;
 
     const loginSuccess = await dispatch(login(inputs));
+
+    const successToast = { message: `Welcome ${username}`, severity: ToastTypes.INFO };
+    const failureToast = { message: 'Login failed', severity: ToastTypes.ERROR };
+
+    const toast = loginSuccess ? successToast : failureToast;
+
     if (loginSuccess) {
       history.push('/');
-      setToastOpen({ message: `Welcome ${username}`, severity: ToastTypes.INFO });
     }
+
+    setToastOpen(toast);
   };
 
   return (
