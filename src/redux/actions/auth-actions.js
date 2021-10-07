@@ -42,6 +42,7 @@ export const login = (authData) => async (dispatch) => {
 };
 
 export const logout = () => {
+  // Step clear session storage
   sessionStorage.removeItem('userToken');
   sessionStorage.removeItem('user');
   return { type: authConstants.LOGOUT };
