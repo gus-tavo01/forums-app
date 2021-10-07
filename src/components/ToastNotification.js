@@ -43,22 +43,4 @@ function ToastNotification() {
   );
 }
 
-// ToastNotification.propTypes = {
-//   isOpen: PropTypes.bool,
-//   severity: PropTypes.string,
-//   message: PropTypes.string,
-//   onClose: PropTypes.func,
-//   autoHideDuration: PropTypes.number,
-//   variant: PropTypes.oneOf(['outlined', 'filled', 'standard']),
-// };
-
-// ToastNotification.defaultProps = {
-//   isOpen: false,
-//   severity: undefined,
-//   message: null,
-//   onClose: () => null,
-//   autoHideDuration: 6000,
-//   variant: 'outlined',
-// };
-
 export default ToastNotification;
